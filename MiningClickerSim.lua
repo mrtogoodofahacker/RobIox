@@ -160,6 +160,11 @@ local tb = tele:AddButton({
 tele:AddButton({
     Name = "Tp to Trade World",
     Callback = function()
+        if syn then
+            syn.queue_on_teleport("loadstring(game:HttpGet(('https://raw.githubusercontent.com/Zet-a/RobIox/main/MiningClickerSim.lua')))()")
+        else
+            queue_on_teleport("loadstring(game:HttpGet(('https://raw.githubusercontent.com/Zet-a/RobIox/main/MiningClickerSim.lua')))()")
+        end
         game:GetService("TeleportService"):Teleport(10148920696, game:GetService("Players").LocalPlayer)
     end
 })
@@ -167,6 +172,11 @@ if game.PlaceId == 10148920696 then
     tele:AddButton({
         Name = "Back to main game",
         Callback = function()
+            if syn then
+                syn.queue_on_teleport("loadstring(game:HttpGet(('https://raw.githubusercontent.com/Zet-a/RobIox/main/MiningClickerSim.lua')))()")
+            else
+                queue_on_teleport("loadstring(game:HttpGet(('https://raw.githubusercontent.com/Zet-a/RobIox/main/MiningClickerSim.lua')))()")
+            end
             game:GetService("TeleportService"):Teleport(8884334497, game:GetService("Players").LocalPlayer)
         end
     })
@@ -174,6 +184,11 @@ end
 tele:AddButton({
     Name = "Rejoin",
     Callback = function()
+        if syn then
+            syn.queue_on_teleport("loadstring(game:HttpGet(('https://raw.githubusercontent.com/Zet-a/RobIox/main/MiningClickerSim.lua')))()")
+        else
+            queue_on_teleport("loadstring(game:HttpGet(('https://raw.githubusercontent.com/Zet-a/RobIox/main/MiningClickerSim.lua')))()")
+        end
         game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
     end
 })
