@@ -1,5 +1,6 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Mining Clicker Sim | By Zeta", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
+repeat task.wait() until game:IsLoaded()
 local sfm = require(game.ReplicatedStorage.Modules:WaitForChild("SuffixModule"))
 local pm = require(game:GetService("ReplicatedStorage").Modules.pickaxesModule)
 
