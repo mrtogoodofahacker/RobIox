@@ -8,7 +8,7 @@ local twcodes = {"UPDATE4","Spyder", "10KLikes", "1KLIKES", "RELEASE", "20KLIKES
 local selectedegg = "Starter Egg"
 local amount = 1
 local valnum = 1
-local eggvalues = {se = 320, spe = 1200,fe = 10000,de = 100000,sne = 1000000,ce = 7500000,oe = 20000000,je = 120000000,ve = 400000000,spae = 1800000000,ue = 15000000000,he = 150000000000,dve = 500000000000,foe = 100000000000000,te = 500000000000000,me = 15000000000000000}
+local eggvalues = {se = 320, spe = 1200,fe = 10000,de = 100000,sne = 1000000,ce = 7500000,oe = 20000000,je = 120000000,ve = 400000000,spae = 1800000000,ue = 15000000000,he = 150000000000,dve = 500000000000,foe = 100000000000000,te = 500000000000000,me = 15000000000000000,ole = 35000000000000000}
 local lp = game.Players.LocalPlayer
 local total
 local autorebirth = false
@@ -94,6 +94,8 @@ pet:AddDropdown({
             valnum = "te"
         elseif selectedegg == "Mummy Egg" then
             valnum = "me"
+        elseif selectedegg == "Olympus Egg" then
+            valnum = "ole"
         end
 	end    
 })
