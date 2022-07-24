@@ -59,7 +59,7 @@ local pet = Tab:AddSection({
 pet:AddDropdown({
 	Name = "Egg Selection",
 	Default = "Starter Egg",
-	Options = {"Starter Egg", "Spotted Egg", "Floral Egg", "Desert Egg", "Snow Egg","Cave Egg","Ocean Egg","Volcano Egg","Space Egg","Undead Egg","Heavenly Egg","Devil Egg","Fossil Egg","Tentacle Egg","Mummy Egg"},
+	Options = {"Starter Egg", "Spotted Egg", "Floral Egg", "Desert Egg", "Snow Egg","Cave Egg","Ocean Egg","Volcano Egg","Space Egg","Undead Egg","Heavenly Egg","Devil Egg","Fossil Egg","Tentacle Egg","Mummy Egg","Olympus Egg"},
 	Callback = function(Value)
 		selectedegg = Value
         if selectedegg == "Starter Egg" then
