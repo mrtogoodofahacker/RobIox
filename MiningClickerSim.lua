@@ -4,7 +4,7 @@ repeat task.wait() until game:IsLoaded()
 local sfm = require(game.ReplicatedStorage.Modules:WaitForChild("SuffixModule"))
 local pm = require(game:GetService("ReplicatedStorage").Modules.pickaxesModule)
 
-local twcodes = {"UPDATE4","Spyder", "10KLikes", "1KLIKES", "RELEASE", "20KLIKES", "UPDATE3"}
+local twcodes = {"UPDATE4","Spyder", "10KLikes", "1KLIKES", "RELEASE", "20KLIKES", "UPDATE3", "30KLIKES"} -- I guess you like looking at source code
 local selectedegg = "Starter Egg"
 local amount = 1
 local valnum = 1
