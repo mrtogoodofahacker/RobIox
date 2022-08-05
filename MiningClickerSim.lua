@@ -4,9 +4,11 @@ repeat task.wait() until game:IsLoaded()
 local sfm = require(game.ReplicatedStorage.Modules:WaitForChild("SuffixModule"))
 local pm = require(game:GetService("ReplicatedStorage").Modules.pickaxesModule)
 local stats = require(game:GetService("ReplicatedStorage").Modules.statModule)
+local zstats = require(game:GetService("ReplicatedStorage").Modules.ZoneStats)
 local temp = {}
 local eggnames = {}
 local eggs = {}
+local zones = {}
 local twcodes = {"UPDATE4","Spyder", "10KLikes", "1KLIKES", "RELEASE", "20KLIKES", "UPDATE3"}
 local worlds = { ["World 1"] = "Hell Dungeon", ["World 2"] = "Jurassic",["World 3"] = "Dragon City"}
 local titles = {"World 1","World 2","World 3"}
@@ -31,6 +33,14 @@ for i,v in pairs(stats.eggCosts) do
     if not table.find(eggblacklist, i) then 
         table.insert(temp, {tostring(i),v})
     end
+end
+
+for i,v in pairs(zstats.zoneNames) do
+	local str = string.gsub(v," Zone","")
+	if str == "Grass" then
+		str = "Spawn"
+	end
+    table.insert(zones, str)
 end
 
 table.sort(temp, function(a,b)
@@ -131,33 +141,23 @@ local tele = Window:MakeTab({
     Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
---[[
+
 local t = tele:AddDropdown({
     Name = "Teleports",
     Default = "Spawn",
-    Options = {},
+    Options = {"Spawn"},
     Callback = function(Value)
-       lp.Character:MoveTo(Vector3.new(game:GetService("ReplicatedStorage").TeleportPositions[Value].Value))
+        game:GetService("ReplicatedStorage").Remotes.TeleportToPlace:InvokeServer(Value)
     end
 })
-t:Refresh(teleports,true)
-]]--
+t:Refresh(zones,true)
+
 local wt = tele:AddDropdown({
     Name = "Worlds",
     Default = "World 1",
     Options = {"World 1"},
     Callback = function(Value)
         game:GetService("ReplicatedStorage").Remotes.TeleportToPlace:InvokeServer(worlds[Value])
-        --[[
-        t:Refresh(teleports,true)
-        repeat task.wait() until game:GetService("Workspace").TeleportBricks.ChildAdded
-        task.wait(0.5)
-        teleports = {}
-        for i,v in pairs(game:GetService("Workspace").TeleportBricks:GetChildren()) do
-            table.insert(teleports, v.Name)
-        end
-        t:Refresh(teleports,true)
-        ]]--
     end
 })
 
