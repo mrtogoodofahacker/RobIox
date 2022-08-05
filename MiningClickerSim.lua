@@ -3,22 +3,46 @@ local Window = OrionLib:MakeWindow({Name = "Mining Clicker Sim | By Zeta", HideP
 repeat task.wait() until game:IsLoaded()
 local sfm = require(game.ReplicatedStorage.Modules:WaitForChild("SuffixModule"))
 local pm = require(game:GetService("ReplicatedStorage").Modules.pickaxesModule)
-
-local twcodes = {"UPDATE4","Spyder", "10KLikes", "1KLIKES", "RELEASE", "20KLIKES", "UPDATE3", "30KLIKES"} -- I guess you like looking at source code
+local stats = require(game:GetService("ReplicatedStorage").Modules.statModule)
+local temp = {}
+local eggnames = {}
+local eggs = {}
+local twcodes = {"UPDATE4","Spyder", "10KLikes", "1KLIKES", "RELEASE", "20KLIKES", "UPDATE3"}
+local worlds = { ["World 1"] = "Hell Dungeon", ["World 2"] = "Jurassic",["World 3"] = "Dragon City"}
+local titles = {"World 1","World 2","World 3"}
+local eggblacklist = {"Exclusive Egg 1","1M Visits Egg","10M Visits Egg"}
 local selectedegg = "Starter Egg"
 local amount = 1
-local valnum = 1
-local eggvalues = {se = 320, spe = 1200,fe = 10000,de = 100000,sne = 1000000,ce = 7500000,oe = 20000000,je = 120000000,ve = 400000000,spae = 1800000000,ue = 15000000000,he = 150000000000,dve = 500000000000,foe = 100000000000000,te = 500000000000000,me = 15000000000000000,ole = 35000000000000000}
 local lp = game.Players.LocalPlayer
 local total
 local autorebirth = false
 local autopick = false
 local autoclick = false
-local tnme = "Spawn"
 local teleports = {}
 local abuy = false
 
-for i,v in pairs(workspace.TeleportBricks:GetChildren()) do
+local function ClearTbl(tbl)
+    for key in pairs(tbl) do
+        tbl[key] = nil
+    end
+end
+
+for i,v in pairs(stats.eggCosts) do
+    if not table.find(eggblacklist, i) then 
+        table.insert(temp, {tostring(i),v})
+    end
+end
+
+table.sort(temp, function(a,b)
+    return a[2] < b[2]
+end)
+
+for c,d in pairs(temp) do
+    eggs[d[1]] = d[2]
+    table.insert(eggnames, d[1])
+end
+
+for i,v in pairs(game:GetService("ReplicatedStorage").TeleportPositions:GetChildren()) do
    table.insert(teleports, v.Name) 
 end
 local Tab = Window:MakeTab({
@@ -56,49 +80,15 @@ local pet = Tab:AddSection({
     Name = "hatching"
 })
 
-pet:AddDropdown({
+local eg = pet:AddDropdown({
 	Name = "Egg Selection",
 	Default = "Starter Egg",
-	Options = {"Starter Egg", "Spotted Egg", "Floral Egg", "Desert Egg", "Snow Egg","Cave Egg","Ocean Egg","Volcano Egg","Space Egg","Undead Egg","Heavenly Egg","Devil Egg","Fossil Egg","Tentacle Egg","Mummy Egg","Olympus Egg"},
+	Options = {"Starter Egg"},
 	Callback = function(Value)
 		selectedegg = Value
-        if selectedegg == "Starter Egg" then
-            valnum = "se"
-        elseif selectedegg == "Spotted Egg" then
-            valnum = "spe"
-        elseif selectedegg == "Floral Egg" then
-            valnum = "fe"
-        elseif selectedegg == "Desert Egg" then
-            valnum = "de"
-        elseif selectedegg == "Snow Egg" then
-            valnum = "sne"
-        elseif selectedegg == "Cave Egg" then
-            valnum = "ce"
-        elseif selectedegg == "Ocean Egg" then
-            valnum = "oe"
-        elseif selectedegg == "Jungle Egg" then
-            valnum = "je"
-        elseif selectedegg == "Volcano Egg" then
-            valnum = "ve"
-        elseif selectedegg == "Space Egg" then -- lord...
-            valnum = "spae"
-        elseif selectedegg == "Undead Egg" then
-            valnum = "ue"
-        elseif selectedegg == "Heavenly Egg" then
-            valnum = "he"
-        elseif selectedegg == "Devil Egg" then
-            valnum = "dve"
-        elseif selectedegg == "Fossil Egg" then
-            valnum = "foe"
-        elseif selectedegg == "Tentacle Egg" then
-            valnum = "te"
-        elseif selectedegg == "Mummy Egg" then
-            valnum = "me"
-        elseif selectedegg == "Olympus Egg" then
-            valnum = "ole"
-        end
 	end    
 })
+eg:Refresh(eggnames, true)
 
 pet:AddSlider({
 	Name = "Amount",
@@ -141,24 +131,37 @@ local tele = Window:MakeTab({
     Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
-
+--[[
 local t = tele:AddDropdown({
     Name = "Teleports",
     Default = "Spawn",
     Options = {},
     Callback = function(Value)
-       tnme = Value
+       lp.Character:MoveTo(Vector3.new(game:GetService("ReplicatedStorage").TeleportPositions[Value].Value))
     end
 })
-
 t:Refresh(teleports,true)
-
-local tb = tele:AddButton({
-    Name = "Teleport",
-    Callback = function()
-        lp.Character:MoveTo(workspace.TeleportBricks[tnme].Position) 
+]]--
+local wt = tele:AddDropdown({
+    Name = "Worlds",
+    Default = "World 1",
+    Options = {"World 1"},
+    Callback = function(Value)
+        game:GetService("ReplicatedStorage").Remotes.TeleportToPlace:InvokeServer(worlds[Value])
+        --[[
+        t:Refresh(teleports,true)
+        repeat task.wait() until game:GetService("Workspace").TeleportBricks.ChildAdded
+        task.wait(0.5)
+        teleports = {}
+        for i,v in pairs(game:GetService("Workspace").TeleportBricks:GetChildren()) do
+            table.insert(teleports, v.Name)
+        end
+        t:Refresh(teleports,true)
+        ]]--
     end
 })
+
+wt:Refresh(titles,true)
 
 tele:AddButton({
     Name = "Tp to Trade World",
@@ -253,10 +256,9 @@ game:GetService("RunService").RenderStepped:Connect(function()
     if abuy == true then
         game:GetService("ReplicatedStorage").Remotes.buyEgg:InvokeServer(selectedegg, amount)
     end
-    total = sfm.Suffix(eggvalues[valnum] * amount)
+    total = sfm.Suffix(eggs[selectedegg] * amount)
     cost:Set("Cost: "..total)
 end)
-
 
 
 OrionLib:Init()
