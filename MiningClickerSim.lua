@@ -9,7 +9,7 @@ local temp = {}
 local eggnames = {}
 local eggs = {}
 local zones = {}
-local twcodes = {"UPDATE4","Spyder", "10KLikes", "1KLIKES", "RELEASE", "20KLIKES", "UPDATE3"}
+local twcodes = {"UPDATE6","UPDATE5","UPDATE4","Spyder", "10KLikes", "1KLIKES", "RELEASE", "20KLIKES", "UPDATE3"}
 local worlds = { ["World 1"] = "Hell Dungeon", ["World 2"] = "Jurassic",["World 3"] = "Dragon City"}
 local titles = {"World 1","World 2","World 3"}
 local eggblacklist = {"Exclusive Egg 1","1M Visits Egg","10M Visits Egg"}
