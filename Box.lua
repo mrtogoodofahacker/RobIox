@@ -5,6 +5,7 @@ zlib.__Tools.camera = workspace.CurrentCamera
 zlib.__Tools.RS = game:GetService("RunService")
 zlib.__Tools.lp = game:GetService("Players").LocalPlayer
 zlib.__Tools.plrs = game:GetService("Players")
+getgenv().__Variables = {}
 function zlib:box(obj,name,list)
     if name == nil or "" then
     
