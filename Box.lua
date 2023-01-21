@@ -1,4 +1,3 @@
--- Made by Throit
 local zlib = {}
 zlib.__Tools = {}
 zlib.__Tools.camera = workspace.CurrentCamera
@@ -6,7 +5,26 @@ zlib.__Tools.RS = game:GetService("RunService")
 zlib.__Tools.lp = game:GetService("Players").LocalPlayer
 zlib.__Tools.plrs = game:GetService("Players")
 getgenv().__Variables = {}
-function zlib:box(obj,name,list)
+
+local function newdraw(t,table,snd)
+    local txt = Drawing.new(t)
+    if table and typeof(table) == "table" then
+        for property,value in pairs(table) do
+            if snd == "sensitive" then
+               if property == Size or Thickness then
+
+               else
+                txt[property] = value
+               end
+            else
+            txt[property] = value
+            end
+        end
+    end
+    return txt
+end
+
+function zlib:box(obj,name,list) -- Made by Throit
     if name == nil or "" then
     
     else
@@ -119,5 +137,40 @@ function zlib:box(obj,name,list)
     end
     coroutine.wrap(Update)()
     return ltable
+end
+
+function zlib:text(obj,y,x,name,list) -- made by me
+    if name == nil or "" then
+    
+    else
+        if table.find(__Variables, name) then
+        
+        else
+            __Variables[name] = false
+        end
+    end
+
+    local txt = newdraw("Text",list)
+    local function updater()
+        local c
+        c = zlib.__Tools.RS.RenderStepped:Connect(function()
+            if __Variables[name] == true then else txt.Visible = false return end
+            local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(obj.Position)
+            if onscreen then
+                txt.Visible = true
+                txt.Position = Vector2.new(partpos.X + x,partpos.Y + y) -- x = offset y = idfk
+            else
+                txt.Visible = false
+            end
+        end)
+        obj.AncestryChanged:Connect(function()
+            if not obj:IsDescendantOf(game) then
+                c:Disconnect()
+                txt:Remove()
+            end
+        end)
+    end
+    coroutine.wrap(updater)()
+    return txt
 end
 return zlib
