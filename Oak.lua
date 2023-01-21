@@ -1,9 +1,14 @@
--- Fixed by squares (thanks) | L devs
 local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/RobIox/main/LibrarySnippet.lua"))()
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua"))()
-local rocks = workspace.World.RockRegions.Island
+local rocks = workspace.World.RockRegions
 local selected = "Mythril"
 local ores = {
+    Magnetite = {
+        ["rbxassetid://12100885933"] = BrickColor.new("Bright violet")
+    },
+    ["Rosa Quartz"] = {
+        ["rbxassetid://12100886051"] = BrickColor.new("Carnation pink")
+    },
 	Mythril = {
 		["rbxassetid://12100886066"] = BrickColor.new("Med. bluish green"),
 		["rbxassetid://12100886051"] = BrickColor.new("Med. bluish green"),
@@ -24,6 +29,11 @@ local ores = {
 		["rbxassetid://12100885933"] = BrickColor.new("Flame yellowish orange"),
 		["rbxassetid://12100885936"] = BrickColor.new("Flame yellowish orange")
 	},
+    Quartz = {
+        ["rbxassetid://12100886068"] = BrickColor.new("Institutional white"),
+        ["rbxassetid://12100886066"] = BrickColor.new("Institutional white"),
+        ["rbxassetid://12100886051"] = BrickColor.new("Institutional white")
+    },
 	Tin = {
 		["rbxassetid://12100886049"] = BrickColor.new("Light stone grey"),
 		["rbxassetid://12100886035"] = BrickColor.new("Light stone grey"),
@@ -36,14 +46,19 @@ local ores = {
 	},
 }
 
+local function hasProperty(object, prop)
+    local success = pcall(function()local temp = object[prop]end)
+	return success
+end
+
 local function addOre(ore)
-	if ore:IsA("MeshPart") then
+	if hasProperty(ore, "CanCollide") and ore.CanCollide == false then
 		for i, v in pairs(ores) do
 			for o, b in pairs(v) do
-				if tostring(ore.MeshId) == o then
-					zlib:box(ore.Parent.Parent, i, {
+				if --[[ tostring(ore.MeshId) == o and ]] ore.BrickColor == b then
+					--[[ zlib:box(ore.Parent.Parent, i, {
 						Color = b.Color,
-					})
+					}) ]]
 					zlib:text(ore.Parent.Parent, -2, 0, i .. "title", {
 						Text = i,
 						Visible = false,
@@ -78,25 +93,25 @@ local Tabs = {
 
 local mainleftgroupbox = Tabs.Main:AddLeftGroupbox("Automatic stuff")
 mainleftgroupbox:AddDropdown("SelectOre", {
-	Values = { "Mythril", "Gold", "Iron", "Pyrite", "Tin", "Copper" },
+	Values = { "Magnetite", "Rosa Quartz", "Mythril", "Gold", "Iron", "Pyrite", "Quartz", "Tin", "Copper" },
 	Default = 1,
 	Multi = false,
 	Text = "Ores",
 	Tooltip = "Click the type of ore to show edit its title or box visibility.",
 })
-mainleftgroupbox:AddToggle("ShowBox", {
+--[[ mainleftgroupbox:AddToggle("ShowBox", {
 	Text = "Show Box",
 	Default = false,
 	Tooltip = "Shows esp box",
-})
+}) ]]
 mainleftgroupbox:AddToggle("Showtitle", {
 	Text = "Show Title",
 	Default = false,
 	Tooltip = "Shows esp title",
 })
-Toggles.ShowBox:OnChanged(function()
+--[[ Toggles.ShowBox:OnChanged(function()
 	__Variables[selected] = Toggles.ShowBox.Value
-end)
+end) ]]
 
 Toggles.Showtitle:OnChanged(function()
 	__Variables[selected .. "title"] = Toggles.Showtitle.Value
@@ -105,7 +120,7 @@ end)
 Options.SelectOre:OnChanged(function()
 	selected = Options.SelectOre.Value
 	local title = __Variables[selected .. "title"] -- quick fix
-	local box = __Variables[selected] -- quick fix
+	--[[ local box = __Variables[selected] -- quick fix ]]
 	Toggles.Showtitle:SetValue(title)
-	Toggles.ShowBox:SetValue(box)
+	--[[ Toggles.ShowBox:SetValue(box) ]]
 end)
