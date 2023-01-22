@@ -1,6 +1,7 @@
 local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/RobIox/main/LibrarySnippet.lua"))()
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua"))()
 local rocks = workspace.World.RockRegions
+local event = workspace.World.TreeRegions["1MEvent"]
 local selected = "Mythril"
 local ores = {
     Magnetite = {
@@ -46,9 +47,35 @@ local ores = {
 	},
 }
 
+local trees = {
+	["Event Tree"] = {
+		part = BrickColor.new("Reddish brown")
+	}
+}
+
 local function hasProperty(object, prop)
     local success = pcall(function()local temp = object[prop]end)
 	return success
+end
+
+local function addTree(tree)
+	if hasProperty(tree, "CanCollide") and tree.CanCollide == true then
+		for i, v in pairs(trees) do
+			for o, b in pairs(v) do
+				if tree.BrickColor == b then
+					zlib:text(tree, -2, 0, "EventTreetitle", {
+						Text = i,
+						Visible = false,
+						Outline = true,
+						OutlineColor = Color3.fromRGB(0, 0, 0),
+						Color = Color3.fromRGB(230, 157, 21),
+						Center = true,
+						Font = 2,
+					})
+				end
+			end
+		end
+	end
 end
 
 local function addOre(ore)
@@ -79,6 +106,14 @@ for _, v in pairs(rocks:GetDescendants()) do
 end
 rocks.DescendantAdded:Connect(function(v)
 	addOre(v)
+end)
+
+for _, v in pairs(event:GetDescendants()) do
+    addTree(v)
+end
+
+event.DescendantAdded:Connect(function(v)
+    addTree(v)
 end)
 
 local window = lib:CreateWindow({
@@ -123,4 +158,15 @@ Options.SelectOre:OnChanged(function()
 	--[[ local box = __Variables[selected] -- quick fix ]]
 	Toggles.Showtitle:SetValue(title)
 	--[[ Toggles.ShowBox:SetValue(box) ]]
+end)
+
+local mainrightgroupbox = Tabs.Main:AddRightGroupbox("1M Event")
+mainrightgroupbox:AddToggle("Showtreetitle",{
+	Text = "Show title",
+	Default = false,
+	Tooltip = "Shows esp title"
+})
+
+Toggles.Showtreetitle:OnChanged(function()
+    __Variables["EventTreetitle"] = Toggles.Showtreetitle.Value
 end)
