@@ -1,7 +1,7 @@
 local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/RobIox/main/LibrarySnippet.lua"))()
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua"))()
 local rocks = workspace.World.RockRegions
-local event = workspace.World.TreeRegions["1MEvent"]
+local trees = workspace.World.TreeRegions
 local selected = "Mythril"
 local ores = {
     Magnetite = {
@@ -48,9 +48,7 @@ local ores = {
 }
 
 local trees = {
-	["Event Tree"] = {
-		part = BrickColor.new("Reddish brown")
-	}
+
 }
 
 local function hasProperty(object, prop)
@@ -58,12 +56,13 @@ local function hasProperty(object, prop)
 	return success
 end
 
+--[[
 local function addTree(tree)
 	if hasProperty(tree, "CanCollide") and tree.CanCollide == true then
 		for i, v in pairs(trees) do
 			for o, b in pairs(v) do
 				if tree.BrickColor == b then
-					zlib:text(tree, -2, 0, "EventTreetitle", {
+					zlib:text(tree, -2, 0, "", {
 						Text = i,
 						Visible = false,
 						Outline = true,
@@ -77,6 +76,7 @@ local function addTree(tree)
 		end
 	end
 end
+]]-- Edited out until needed
 
 local function addOre(ore)
 	if hasProperty(ore, "CanCollide") and ore.CanCollide == false then
@@ -107,15 +107,15 @@ end
 rocks.DescendantAdded:Connect(function(v)
 	addOre(v)
 end)
-
-for _, v in pairs(event:GetDescendants()) do
+--[[
+for _, v in pairs(trees:GetDescendants()) do
     addTree(v)
 end
 
-event.DescendantAdded:Connect(function(v)
+trees.DescendantAdded:Connect(function(v)
     addTree(v)
 end)
-
+]]--
 local window = lib:CreateWindow({
 	Title = "Obsidian (Oaklands)",
 	Center = true,
