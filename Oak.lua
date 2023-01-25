@@ -2,7 +2,6 @@ local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/Ro
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua"))()
 local rocks = workspace.World.RockRegions
 local trees = workspace.World.TreeRegions
-local event = trees["1MEvent"]
 local selected = "Magnetite"
 local ores = {
     Magnetite = {
@@ -49,9 +48,6 @@ local ores = {
 }
 
 local trees = {
-	["Event Tree"] = {
-		part = BrickColor.new("Reddish brown")
-	}
 }
 
 local function hasProperty(object, prop)
@@ -64,7 +60,7 @@ local function addTree(tree)
 		for i, v in pairs(trees) do
 			for o, b in pairs(v) do
 				if tree.BrickColor == b then
-					zlib:text(tree, -2, 0, "EventTreetitle", {
+					zlib:text(tree, -2, 0, "Treetitle", {
 						Text = i,
 						Visible = false,
 						Outline = true,
@@ -107,14 +103,6 @@ for _, v in pairs(rocks:GetDescendants()) do
 end
 rocks.DescendantAdded:Connect(function(v)
 	addOre(v)
-end)
-
-for _, v in pairs(event:GetDescendants()) do
-    addTree(v)
-end
-
-event.DescendantAdded:Connect(function(v)
-    addTree(v)
 end)
 
 local window = lib:CreateWindow({
