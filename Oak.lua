@@ -1,12 +1,15 @@
 local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/RobIox/main/LibrarySnippet.lua"))()
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua"))()
 local rocks = workspace.World.RockRegions
-local trees = workspace.World.TreeRegions
-local selected = "Magnetite"
+local event = workspace.World.TreeRegions["1MEvent"]
+local selected = "Mythril"
 local ores = {
     Magnetite = {
         ["rbxassetid://12100885933"] = BrickColor.new("Bright violet")
     },
+	Adurite = {
+		["rbxassetid://12100886068"] = BrickColor.new("Bright red")
+	},
     ["Rosa Quartz"] = {
         ["rbxassetid://12100886051"] = BrickColor.new("Carnation pink")
     },
@@ -48,6 +51,9 @@ local ores = {
 }
 
 local trees = {
+	["Event Tree"] = {
+		part = BrickColor.new("Reddish brown")
+	}
 }
 
 local function hasProperty(object, prop)
@@ -60,7 +66,7 @@ local function addTree(tree)
 		for i, v in pairs(trees) do
 			for o, b in pairs(v) do
 				if tree.BrickColor == b then
-					zlib:text(tree, -2, 0, "Treetitle", {
+					zlib:text(tree, -2, 0, "EventTreetitle", {
 						Text = i,
 						Visible = false,
 						Outline = true,
@@ -105,6 +111,14 @@ rocks.DescendantAdded:Connect(function(v)
 	addOre(v)
 end)
 
+for _, v in pairs(event:GetDescendants()) do
+    addTree(v)
+end
+
+event.DescendantAdded:Connect(function(v)
+    addTree(v)
+end)
+
 local window = lib:CreateWindow({
 	Title = "Obsidian (Oaklands)",
 	Center = true,
@@ -115,9 +129,9 @@ local Tabs = {
 	Main = window:AddTab("Main"),
 }
 
-local mainleftgroupbox = Tabs.Main:AddLeftGroupbox("Ore Esp")
+local mainleftgroupbox = Tabs.Main:AddLeftGroupbox("Automatic stuff")
 mainleftgroupbox:AddDropdown("SelectOre", {
-	Values = { "Magnetite", "Rosa Quartz", "Mythril", "Gold", "Iron", "Pyrite", "Quartz", "Tin", "Copper" },
+	Values = { "Magnetite", "Adurite", "Mythril", "Rosa Quartz", "Gold", "Iron", "Pyrite", "Quartz", "Tin", "Copper" },
 	Default = 1,
 	Multi = false,
 	Text = "Ores",
