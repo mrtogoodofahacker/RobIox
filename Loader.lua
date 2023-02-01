@@ -45,7 +45,7 @@ local sg = Instance.new("ScreenGui")
 ProtectGui(sg)
 sg.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
-sg.Parent = game.GetService("CoreGui")
+sg.Parent = game:GetService("CoreGui")
 
 local mainframe = new("Frame",{
     Parent = sg,
