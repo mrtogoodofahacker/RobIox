@@ -43,11 +43,7 @@ local closesel = {Size = UDim2.new(0,190,0,0)}
 
 local sg = Instance.new("ScreenGui")
 sg.ZIndexBehavior = Enum.ZIndexBehavior.Global
-if gethui() then
-    sg.Parent = gethui()
-else
-    ProtectGui(sg)
-end
+ProtectGui(sg)
 
 local mainframe = new("Frame",{
     Parent = sg,
