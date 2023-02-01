@@ -132,15 +132,6 @@ local Uill = new("UIListLayout",{
 
 local uni = newbtn("Universal (Soon!)",selectionframe)
 
-for i,v in pairs(games) do
-    if game.PlaceId == v then
-        local gspecific = newbtn(tostring(i),selectionframe)
-        gspecific.MouseButton1Down:Connect(function()
-            
-        end)
-    end
-end
-
 local toggle = true
 local db = false
 selmenu.MouseButton1Down:Connect(function()
@@ -185,6 +176,32 @@ selmenu.MouseButton1Down:Connect(function()
         db = false
     end
 end)
+
+for i,v in pairs(games) do
+    if game.PlaceId == v then
+        local gspecific = newbtn(tostring(i),selectionframe)
+        gspecific.MouseButton1Down:Connect(function()
+            selmenu.Text = tostring(i)
+            selected = v
+            for a,b in pairs(menubtns) do
+                local tabl = {
+                    TextTransparency = 1,
+                    Transparency = 1,
+                }
+                local e = ts:Create(b,ti,tabl)
+                e:Play()
+                e.Completed:Connect(function()
+                    b.Visible = false
+                    local t = ts:Create(selectionframe,ti,closesel)
+                    t:Play()
+                    t.Completed:Connect(function()
+                        selectionframe.Visible = false
+                    end)
+                end)
+            end
+        end)
+    end
+end
 
 load.MouseButton1Down:Connect(function()
     if selected ~= nil or "" then
