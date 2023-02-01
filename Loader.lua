@@ -205,7 +205,7 @@ end
 
 load.MouseButton1Down:Connect(function()
     if selected ~= nil or "" then
-        loadstring(game:HttpGet(repo..tostring(selected)))()
+        loadstring(game:HttpGet(repo..tostring(selected)..".lua"))()
     else
         load.Text = "Menu not selected!"
         task.wait(1)
