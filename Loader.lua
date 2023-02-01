@@ -42,8 +42,10 @@ local opensel = {Size = UDim2.new(0,190,0,100)}
 local closesel = {Size = UDim2.new(0,190,0,0)}
 
 local sg = Instance.new("ScreenGui")
-sg.ZIndexBehavior = Enum.ZIndexBehavior.Global
 ProtectGui(sg)
+sg.ZIndexBehavior = Enum.ZIndexBehavior.Global
+
+sg.Parent = game.GetService("CoreGui")
 
 local mainframe = new("Frame",{
     Parent = sg,
