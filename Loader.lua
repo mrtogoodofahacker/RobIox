@@ -77,6 +77,7 @@ local title = new("TextLabel",{
 
 local pattern = new("ImageLabel",{
     Parent = innerframe,
+    Size = UDim2.new(0,200,0,80),
     Image = "rbxassetid://2151741365",
     ImageTransparency = 0.6,
 })
