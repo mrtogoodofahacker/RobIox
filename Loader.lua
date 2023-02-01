@@ -45,7 +45,7 @@ local sg = Instance.new("ScreenGui")
 ProtectGui(sg)
 sg.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
-sg.Parent = game:GetService("CoreGui")
+sg.Parent = game.GetService("CoreGui")
 
 local mainframe = new("Frame",{
     Parent = sg,
@@ -202,8 +202,9 @@ for i,v in pairs(games) do
 end
 
 load.MouseButton1Down:Connect(function()
-    if selected ~= nil or "" then
+    if selected then
         loadstring(game:HttpGet(repo..tostring(selected)..".lua"))()
+        sg:Destroy()
     else
         load.Text = "Menu not selected!"
         task.wait(1)
