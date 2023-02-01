@@ -152,13 +152,3 @@ Options.SelectOre:OnChanged(function()
 	--[[ Toggles.ShowBox:SetValue(box) ]]
 end)
 
-local mainrightgroupbox = Tabs.Main:AddRightGroupbox("1M Event")
-mainrightgroupbox:AddToggle("Showtreetitle",{
-	Text = "Show title",
-	Default = false,
-	Tooltip = "Shows esp title"
-})
-
-Toggles.Showtreetitle:OnChanged(function()
-    __Variables["EventTreetitle"] = Toggles.Showtreetitle.Value
-end)
