@@ -1,7 +1,7 @@
 local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/RobIox/main/LibrarySnippet.lua"))()
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua"))()
 local rocks = workspace.World.RockRegions
-local trees = workspace.World.TreeRegions
+local trees = workspace.World.TreeRegions -- This was made by Zeta with the assistence of Squares
 local selected = "Magnetite"
 local ores = {
     Magnetite = {
