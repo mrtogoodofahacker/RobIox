@@ -152,3 +152,4 @@ Options.SelectOre:OnChanged(function()
 	--[[ Toggles.ShowBox:SetValue(box) ]]
 end)
 
+lib:Notify("Made by Zeta")
