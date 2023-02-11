@@ -80,6 +80,7 @@ local pattern = new("ImageLabel",{
     Size = UDim2.new(0,200,0,80),
     Image = "rbxassetid://2151741365",
     ImageTransparency = 0.6,
+    BackgroundTransparency = 1,
 })
 
 local load = new("TextButton",{
@@ -165,13 +166,14 @@ selmenu.MouseButton1Down:Connect(function()
                     local t = ts:Create(selectionframe,ti,closesel)
                     t:Play()
                     t.Completed:Connect(function()
+                        task.wait(0.25)
                         selectionframe.Visible = false
                     end)
                 end)
             end
             toggle = true
         end
-        task.wait(0.5)
+        task.wait(0.75)
         db = false
     end
 end)
@@ -194,6 +196,7 @@ for i,v in pairs(games) do
                     local t = ts:Create(selectionframe,ti,closesel)
                     t:Play()
                     t.Completed:Connect(function()
+                        task.wait(0.25)
                         selectionframe.Visible = false
                     end)
                 end)
@@ -202,10 +205,16 @@ for i,v in pairs(games) do
     end
 end
 
+local loaddb = false
 load.MouseButton1Down:Connect(function()
     if selected then
-        loadstring(game:HttpGet(repo..tostring(selected)..".lua"))()
-        sg:Destroy()
+        if loaddb == false then
+            loaddb = true
+            loadstring(game:HttpGet(repo..tostring(selected)..".lua"))()
+            sg:Destroy()
+            task.wait(15)
+            loaddb = false
+        end
     else
         load.Text = "Menu not selected!"
         task.wait(1)
