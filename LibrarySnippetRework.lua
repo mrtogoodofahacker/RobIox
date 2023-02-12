@@ -6,6 +6,11 @@ zlib.__Tools.lp = game:GetService("Players").LocalPlayer
 zlib.__Tools.plrs = game:GetService("Players")
 getgenv().__Variables = {}
 
+function zlib:CTT(name)
+    __Variables[name] = {}
+    __Variables[name].Toggle = false
+end
+
 local function newdraw(t,table,snd)
     local txt = Drawing.new(t)
     if table and typeof(table) == "table" then
@@ -32,7 +37,6 @@ function zlib:box(obj,name,list) -- Made by Throit
             __Variables[name].Box = false
         else
             __Variables[name] = {}
-            __Variables[name].Toggle = false
             __Variables[name].Box = false
         end
     end
@@ -149,7 +153,6 @@ function zlib:text(obj,y,x,name,list) -- made by me
             __Variables[name].Title = false
         else
             __Variables[name] = {}
-            __Variables[name].Toggle = false
             __Variables[name].Title = false
         end
     end
