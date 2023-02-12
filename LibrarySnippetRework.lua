@@ -7,8 +7,9 @@ zlib.__Tools.plrs = game:GetService("Players")
 getgenv().__Variables = {}
 
 function zlib:CTT(name)
-    __Variables[name] = {}
-    __Variables[name].Toggle = false
+    __Variables[name] = {
+        Toggle = false,
+    }
 end
 
 local function newdraw(t,table,snd)
