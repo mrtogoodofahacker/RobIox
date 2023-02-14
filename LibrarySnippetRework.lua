@@ -9,7 +9,6 @@ getgenv().__Variables = {}
 function zlib:CTT(name,Optional)
     __Variables[name] = {
         Toggle = false,
-        Slider = 0,
     }
     if Optional ~= nil or "" then
         for i,v in pairs(Optional) do
@@ -65,17 +64,18 @@ function zlib:box(obj,name,list) -- Made by Throit
     local function Update()
         local run
         run = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if __Variables[name].Toggle == true and __Variables[name].Box == true then else for i,v in pairs(ltable) do v.Visible = false end return end
             if table.find(__Variables[name], "Slider") then
                 if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
-                    
+                    print("Bug? [box]")
                 else
                     for i,v in pairs(ltable) do 
                             v.Visible = false 
                     end 
+                    print("Should Disable them???? [box]")
                     return
                 end
             end
+            if __Variables[name].Toggle == true and __Variables[name].Box == true then else for i,v in pairs(ltable) do v.Visible = false end return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(part.Position)
             if onscreen then
                 local X = part.Size.X/2
@@ -178,15 +178,16 @@ function zlib:text(obj,y,x,name,list) -- made by me
     local function updater()
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if __Variables[name].Toggle == true and __Variables[name].Title == true then else txt.Visible = false return end
             if table.find(__Variables[name], "Slider") then
                 if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
-                    
+                    print("bug")
                 else
+                    print("Should disable them?????")
                     txt.Visible = false
                     return
                 end
             end
+            if __Variables[name].Toggle == true and __Variables[name].Title == true then else txt.Visible = false return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(obj.Position)
             if onscreen then
                 txt.Visible = true
