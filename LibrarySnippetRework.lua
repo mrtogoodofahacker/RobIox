@@ -9,6 +9,8 @@ getgenv().__Variables = {}
 function zlib:CTT(name,Optional)
     __Variables[name] = {
         Toggle = false,
+        HaveSlider = false,
+        Slider = 0,
     }
     if Optional and typeof(Optional) == "table" then
         for i,v in pairs(Optional) do
@@ -64,18 +66,14 @@ function zlib:box(obj,name,list) -- Made by Throit
     local function Update()
         local run
         run = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if table.find(__Variables[name], "Slider") then
+            if __Variables[name].HaveSlider == true then
                 if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
-                    print("Bug? [box]")
                 else
                     for i,v in pairs(ltable) do 
                             v.Visible = false 
                     end 
-                    print("Should Disable them???? [box]")
                     return
                 end
-            else
-                print(__Variables[name].Slider) -- Fuck you LUA
             end
             if __Variables[name].Toggle == true and __Variables[name].Box == true then else for i,v in pairs(ltable) do v.Visible = false end return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(part.Position)
@@ -180,11 +178,9 @@ function zlib:text(obj,y,x,name,list) -- made by me
     local function updater()
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if table.find(__Variables[name], "Slider") then
+            if __Variables[name].HaveSlider == true then
                 if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
-                    print("bug")
                 else
-                    print("Should disable them?????")
                     txt.Visible = false
                     return
                 end
