@@ -46,6 +46,7 @@ function zlib:box(obj,name,list) -- Made by Throit
         else
             __Variables[name] = {}
             __Variables[name].Box = false
+            __Variables[name].HaveSlider = false
         end
     end
     local part = obj
@@ -171,6 +172,7 @@ function zlib:text(obj,y,x,name,list) -- made by me
         else
             __Variables[name] = {}
             __Variables[name].Title = false
+            __Variables[name].HaveSlider = false
         end
     end
 
