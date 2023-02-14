@@ -74,6 +74,8 @@ function zlib:box(obj,name,list) -- Made by Throit
                     print("Should Disable them???? [box]")
                     return
                 end
+            else
+                print(__Variables[name].Slider) -- Fuck you LUA
             end
             if __Variables[name].Toggle == true and __Variables[name].Box == true then else for i,v in pairs(ltable) do v.Visible = false end return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(part.Position)
