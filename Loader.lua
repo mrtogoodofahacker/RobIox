@@ -33,6 +33,7 @@ local ProtectGui = protectgui or (syn and syn.protect_gui) or (function() end);
 local repo = "https://raw.githubusercontent.com/Zet-a/RobIox/main/"
 local games = {
     Oaklands = 9938675423,
+    Pilgrammed = 6735572261,
 }
 
 local selected
@@ -130,7 +131,7 @@ local Uill = new("UIListLayout",{
     HorizontalAlignment = Enum.HorizontalAlignment.Center,
 })
 
-local uni = newbtn("Universal (Soon!)",selectionframe)
+--local uni = newbtn("Universal (Soon!)",selectionframe)
 
 local toggle = true
 local db = false
