@@ -10,7 +10,7 @@ function zlib:CTT(name,Optional)
     __Variables[name] = {
         Toggle = false,
     }
-    if Optional ~= nil or "" then
+    if Optional and typeof(Optional) == "table" then
         for i,v in pairs(Optional) do
            __Variables[name][i] = v 
         end 
