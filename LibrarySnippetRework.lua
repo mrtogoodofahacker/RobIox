@@ -13,7 +13,7 @@ function zlib:CTT(name,Optional)
     }
     if Optional ~= nil or "" then
         for i,v in pairs(Optional) do
-           __Variables[name].i = v 
+           __Variables[name][i] = v 
         end 
     end
 end
