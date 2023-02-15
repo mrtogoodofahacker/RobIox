@@ -8,6 +8,7 @@ local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/RobIox/main/LibrarySnippetRework.lua"))()
 
 --[------------------------------[ Variables ]---------------------------------]--
+local vu = game:GetService("VirtualUser")
 local plrs = game:GetService("Players")
 local lp = plrs.LocalPlayer
 local chests = workspace.Chests
@@ -18,7 +19,7 @@ local selectedore = "Copper"
 local autofish = false
 
 -- rbxassetid://7042732937 is the hooked effect texture
---[-------------------------------[ Tables ]-----------------------------------]--
+--[-------------------------------[ tables ]-----------------------------------]--
 
 --[------------------------------[ Functions ]---------------------------------]--
 local function updatelist(list)
@@ -112,7 +113,7 @@ fishgroup:AddToggle("AutoFish",{
     Default = false,
     Tooltip = "Toggles autofish"
 }):AddKeyPicker("AutoFishKeybind",{
-    Default = 'G',
+    Default = 'H',
     SyncToggleState = true, 
     Mode = 'Toggle',
     Text = 'Auto Fish',
@@ -120,6 +121,7 @@ fishgroup:AddToggle("AutoFish",{
 })
 
 fishgroup:AddLabel("Point mouse at close waters (30stds)")
+fishgroup:AddLabel("This obviously requires a fishing rod")
 for i,v in pairs(chests:GetChildren()) do
     if v:FindFirstChild("Root") then
         local root = v.Root
@@ -217,10 +219,16 @@ chests.ChildAdded:Connect(function(v)
     end
 end)
 local clickdb = false
+local initiateautofish = false
 local ancestrydb = false -- fix attempt
 task.spawn(function()
     while task.wait() do
         if autofish == true then
+            if initiateautofish == true then
+                vu:Button1Down(Vector2.new(0,0),zlib.__Tools.camera.CFrame)
+                vu:Button1Up(Vector2.new(0,0),zlib.__Tools.camera.CFrame)
+            end
+            initiateautofish = false
             for i,v in pairs(workspace:GetChildren()) do
                 if v.Name == "Bobber" then
                     local bob = v
@@ -230,7 +238,8 @@ task.spawn(function()
                             if bob.Attachment.Hooked.Enabled == true then
                                 if clickdb == false then
                                     clickdb = true
-                                    mouse1click()
+                                    vu:Button1Down(Vector2.new(0,0),zlib.__Tools.camera.CFrame)
+                                    vu:Button1Up(Vector2.new(0,0),zlib.__Tools.camera.CFrame)
                                     task.wait(0.1)
                                 clickdb = false
                                 end
@@ -241,7 +250,8 @@ task.spawn(function()
                         if not bob:IsDescendantOf(game) then
                             if ancestrydb == false then
                                 ancestrydb = true
-                                mouse1click()
+                                vu:Button1Down(Vector2.new(0,0),zlib.__Tools.camera.CFrame)
+                                vu:Button1Up(Vector2.new(0,0),zlib.__Tools.camera.CFrame)
                                 task.wait(1)
                                 ancestrydb = false
                             end
@@ -249,6 +259,8 @@ task.spawn(function()
                     end)
                 end
             end
+        else
+            initiateautofish = true
         end
     end
 end)
