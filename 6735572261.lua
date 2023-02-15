@@ -242,7 +242,7 @@ task.spawn(function()
                             if ancestrydb == false then
                                 ancestrydb = true
                                 mouse1click()
-                                task.wait(0.2)
+                                task.wait(1)
                                 ancestrydb = false
                             end
                         end
