@@ -217,6 +217,7 @@ chests.ChildAdded:Connect(function(v)
     end
 end)
 local clickdb = false
+local ancestrydb = false -- fix attempt
 task.spawn(function()
     while task.wait() do
         if autofish == true then
@@ -238,7 +239,12 @@ task.spawn(function()
                     end
                     bob.AncestryChanged:Connect(function()
                         if not bob:IsDescendantOf(game) then
-                            mouse1click()
+                            if ancestrydb == false then
+                                ancestrydb = true
+                                mouse1click()
+                                task.wait(0.2)
+                                ancestrydb = false
+                            end
                         end
                     end)
                 end
