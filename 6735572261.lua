@@ -224,11 +224,20 @@ local ancestrydb = false -- fix attempt
 task.spawn(function()
     while task.wait() do
         if autofish == true then
+
             if initiateautofish == true then
                 vu:Button1Down(Vector2.new(0,0),zlib.__Tools.camera.CFrame)
                 vu:Button1Up(Vector2.new(0,0),zlib.__Tools.camera.CFrame)
             end
             initiateautofish = false
+            for i,v in pairs(chests:GetChildren()) do
+                if v.Name == "Fishing" and v:FindFirstChildWhichIsA("ProximityPrompt") and v:FindFirstChild("Root") then
+                    local mag = (v.Root.Position - lp.Character.HumanoidRootPart.Position).magnitude
+                    if mag <= 20 then
+                        fireproximityprompt(v.ProximityPrompt,2)
+                    end
+                end
+            end
             for i,v in pairs(workspace:GetChildren()) do
                 if v.Name == "Bobber" then
                     local bob = v
