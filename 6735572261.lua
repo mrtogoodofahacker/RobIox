@@ -15,6 +15,9 @@ local goldchests = workspace.GoldChests
 local ores = workspace.Ores
 local oreslidervalue = 500
 local selectedore = "Copper"
+local autofish = false
+
+-- rbxassetid://7042732937 is the hooked effect texture
 --[-------------------------------[ Tables ]-----------------------------------]--
 
 --[------------------------------[ Functions ]---------------------------------]--
@@ -54,6 +57,7 @@ local window = lib:CreateWindow({
 
 local Tabs = {
     esptab = window:AddTab("Esp"),
+    autotab = window:AddTab("Autofarms"),
     settingtab = window:AddTab("Settings"),
 }
 
@@ -101,6 +105,21 @@ oregroup:AddToggle("ShowOreTitle",{
     Tooltip = "Shows selected ore title",
 })
 
+local fishgroup = Tabs.autotab:AddLeftGroupbox("AutoFish (Beta)")
+
+fishgroup:AddToggle("AutoFish",{
+    Text = "Toggle",
+    Default = false,
+    Tooltip = "Toggles autofish"
+}):AddKeyPicker("AutoFishKeybind",{
+    Default = 'G',
+    SyncToggleState = true, 
+    Mode = 'Toggle',
+    Text = 'Auto Fish',
+    NoUI = false,
+})
+
+fishgroup:AddLabel("Point mouse at close waters (30stds)")
 for i,v in pairs(chests:GetChildren()) do
     if v:FindFirstChild("Root") then
         local root = v.Root
@@ -172,6 +191,10 @@ Toggles.ShowOreTitle:OnChanged(function()
     __Variables[selectedore].Title = Toggles.ShowOreTitle.Value
 end)
 
+Toggles.AutoFish:OnChanged(function()
+    autofish = Toggles.AutoFish.Value
+end)
+
 ores.DescendantAdded:Connect(function(v)
     addore(v)
 end)
@@ -191,6 +214,36 @@ chests.ChildAdded:Connect(function(v)
             Center = true,
             Font = 2,
         })
+    end
+end)
+local clickdb = false
+task.spawn(function()
+    while task.wait() do
+        if autofish == true then
+            for i,v in pairs(workspace:GetChildren()) do
+                if v.Name == "Bobber" then
+                    local bob = v
+                    local mag = (bob.Position - lp.Character.HumanoidRootPart.Position).magnitude
+                    if mag <= 30 then
+                        if bob:WaitForChild("Attachment",5) and bob.Attachment:WaitForChild("Hooked") then
+                            if bob.Attachment.Hooked.Enabled == true then
+                                if clickdb == false then
+                                    clickdb = true
+                                    mouse1click()
+                                    task.wait(0.1)
+                                clickdb = false
+                                end
+                            end
+                        end
+                    end
+                    bob.AncestryChanged:Connect(function()
+                        if not bob:IsDescendantOf(game) then
+                            mouse1click()
+                        end
+                    end)
+                end
+            end
+        end
     end
 end)
 ----------------------------------------------------------------------------------
