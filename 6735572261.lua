@@ -11,13 +11,18 @@ local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/Ro
 local vu = game:GetService("VirtualUser")
 local plrs = game:GetService("Players")
 local lp = plrs.LocalPlayer
+local chr = lp.Character
 local chests = workspace.Chests
 local goldchests = workspace.GoldChests
 local ores = workspace.Ores
 local oreslidervalue = 500
 local selectedore = "Copper"
 local autofish = false
-
+local farmchest = false
+local farmores = false
+local npcs = workspace.NPCs
+--local gversion = 21344
+local originalpos
 -- rbxassetid://7042732937 is the hooked effect texture
 --[-------------------------------[ tables ]-----------------------------------]--
 
@@ -47,8 +52,20 @@ end
 zlib:CTT("Chest",{
     HaveSlider = true,
 }) -- CTT = CreateToggleTable
-
+zlib:CTT("Mela",{
+    HaveSlider = false
+})
 -------------------------------------Code-----------------------------------------
+--[[
+if game.PlaceVersion >= gversion then
+    if game.PlaceVersion == gversion then
+        
+    else
+        lib:Notify("Warning! Exploit not updated to latest game version.")
+        lib:Notify("Use unsafe menu features with caution.")
+    end
+end
+]]--
 
 local window = lib:CreateWindow({
 	Title = "Obsidian (Pilgrammed)",
@@ -59,6 +76,7 @@ local window = lib:CreateWindow({
 local Tabs = {
     esptab = window:AddTab("Esp"),
     autotab = window:AddTab("Autofarms"),
+    --unsafetab = window:AddTab("Unsafe"),
     settingtab = window:AddTab("Settings"),
 }
 
@@ -106,6 +124,14 @@ oregroup:AddToggle("ShowOreTitle",{
     Tooltip = "Shows selected ore title",
 })
 
+local miscespgroup = Tabs.esptab:AddRightGroupbox("Misc")
+
+miscespgroup:AddToggle("ShowGemShop",{
+    Text = "Show Traveling Shop",
+    Default = false,
+    Tooltip = "Shows gem shop",
+})
+
 local fishgroup = Tabs.autotab:AddLeftGroupbox("AutoFish (Beta)")
 
 fishgroup:AddToggle("AutoFish",{
@@ -122,6 +148,22 @@ fishgroup:AddToggle("AutoFish",{
 
 fishgroup:AddLabel("Point mouse at close waters (30stds)")
 fishgroup:AddLabel("This obviously requires a fishing rod")
+
+--local unsafeleftgroup = Tabs.unsafetab:AddLeftGroupbox("Auto")
+--unsafeleftgroup:AddLabel("Use this stuff at your own risk!")
+
+unsafeleftgroup:AddToggle("AutofarmChest",{
+    Text = "Autofarm Chests",
+    Default = false,
+    Tooltip = "Teleports you and collects chests"
+})
+
+unsafeleftgroup:AddToggle("AutofarmOre",{
+    Text = "Autofarm Ores",
+    Default = false,
+    Tooltip = "Teleports you and mines ores."
+})
+
 for i,v in pairs(chests:GetChildren()) do
     if v:FindFirstChild("Root") then
         local root = v.Root
@@ -156,6 +198,18 @@ for i,v in pairs(goldchests:GetChildren()) do
             Font = 2,
         })
     end
+end
+
+if npcs:FindFirstChild("Mela") then
+    zlib:text(npcs.Mela.HumanoidRootPart,-2,0,"Mela",{
+        Text = "Traveling Shop",
+        Color = npcs.Mela.Head.Color,
+        Visible = false,
+        Outline = true,
+        OutlineColor = Color3.fromRGB(0, 0, 0),
+        Center = true,
+        Font = 2,
+    })
 end
 
 for i,v in pairs(ores:GetChildren()) do
@@ -197,6 +251,20 @@ Toggles.AutoFish:OnChanged(function()
     autofish = Toggles.AutoFish.Value
 end)
 
+Toggles.ShowGemShop:OnChanged(function()
+    __Variables["Mela"].Toggle = Toggles.ShowGemShop.Value
+    __Variables["Mela"].Title = Toggles.ShowGemShop.Value
+end)
+
+Toggles.AutofarmChest:OnChanged(function()
+    if Toggles.AutofarmChest.Value == true then
+        originalpos = chr.HumanoidRootPart.CFrame
+    elseif Toggles.AutofarmChest.Value == true and originalpos ~= nil then
+        chr:PivotTo(originalpos)
+    end
+    farmchest = Toggles.AutofarmChest.Value
+end)
+
 ores.DescendantAdded:Connect(function(v)
     addore(v)
 end)
@@ -218,6 +286,7 @@ chests.ChildAdded:Connect(function(v)
         })
     end
 end)
+
 local clickdb = false
 local initiateautofish = false
 local ancestrydb = false -- fix attempt
