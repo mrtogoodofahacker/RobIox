@@ -47,6 +47,11 @@ end
 local function addore(ore)
     if ore:IsA("Part") and ore.Name == "Part" then
         for i,v in pairs(ore:GetChildren()) do
+	    if table.find(__Variables, v.Name) then
+               
+            else
+                zlib:CTT(v.Name)
+            end
             zlib:text(v,-2,0,v.Name,{
                 Text = v.Name,
                 Visible = false,
