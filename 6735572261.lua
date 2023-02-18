@@ -152,18 +152,6 @@ fishgroup:AddLabel("This obviously requires a fishing rod")
 --local unsafeleftgroup = Tabs.unsafetab:AddLeftGroupbox("Auto")
 --unsafeleftgroup:AddLabel("Use this stuff at your own risk!")
 
-unsafeleftgroup:AddToggle("AutofarmChest",{
-    Text = "Autofarm Chests",
-    Default = false,
-    Tooltip = "Teleports you and collects chests"
-})
-
-unsafeleftgroup:AddToggle("AutofarmOre",{
-    Text = "Autofarm Ores",
-    Default = false,
-    Tooltip = "Teleports you and mines ores."
-})
-
 for i,v in pairs(chests:GetChildren()) do
     if v:FindFirstChild("Root") then
         local root = v.Root
