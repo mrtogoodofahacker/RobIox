@@ -1,8 +1,12 @@
 local zlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Zet-a/RobIox/main/LibrarySnippet.lua"))()
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/Library.lua"))()
+local repo = 'https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/'
+local lib = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 local rocks = workspace.World.RockRegions
-local trees = workspace.World.TreeRegions -- This was made by Zeta with the assistence of Squares
-local selected = "Magnetite"
+local trees = workspace.World.TreeRegions
+local event = game:GetService("Workspace").World.RockRegions['2MEvent']
+local selected = "Mythril"
 local ores = {
     Magnetite = {
         ["rbxassetid://12100885933"] = BrickColor.new("Bright violet")
@@ -48,9 +52,9 @@ local ores = {
 		["rbxassetid://12100885960"] = BrickColor.new("Flame reddish orange"),
 		["rbxassetid://12100885958"] = BrickColor.new("Flame reddish orange")
 	},
-}
-
-local trees = {
+	Ore = {
+		['2mevent'] = BrickColor.new("Mid gray")
+	},
 }
 
 local function hasProperty(object, prop)
@@ -116,6 +120,7 @@ local window = lib:CreateWindow({
 
 local Tabs = {
 	Main = window:AddTab("Main"),
+    settingtab = window:AddTab("Settings"),
 }
 
 local mainleftgroupbox = Tabs.Main:AddLeftGroupbox("Automatic stuff")
@@ -152,4 +157,28 @@ Options.SelectOre:OnChanged(function()
 	--[[ Toggles.ShowBox:SetValue(box) ]]
 end)
 
+local mainrightgroupbox = Tabs.Main:AddRightGroupbox("2M Event")
+mainrightgroupbox:AddToggle("Eventoretitle",{
+	Text = "Show title",
+	Default = false,
+	Tooltip = "Shows esp title"
+})
+
+Toggles.Eventoretitle:OnChanged(function()
+    __Variables["Oretitle"] = Toggles.Eventoretitle.Value
+end)
+
+local settingsgroup = Tabs.settingtab:AddLeftGroupbox("Menu")
+settingsgroup:AddButton('Unload', function() lib:Unload() end)
+settingsgroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'RightShift', NoUI = true, Text = 'Menu keybind' })
+lib.ToggleKeybind = Options.MenuKeybind
+
+ThemeManager:SetLibrary(lib)
+SaveManager:SetLibrary(lib)
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
+ThemeManager:SetFolder('Obsidian')
+SaveManager:SetFolder('Obsidian/'..tostring(game.PlaceId))
+SaveManager:BuildConfigSection(Tabs.settingtab)
+ThemeManager:ApplyToTab(Tabs.settingtab)
 lib:Notify("Made by Zeta")
