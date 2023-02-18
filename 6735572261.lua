@@ -25,7 +25,7 @@ local npcs = workspace.NPCs
 local originalpos
 -- rbxassetid://7042732937 is the hooked effect texture
 --[-------------------------------[ tables ]-----------------------------------]--
-local ores = {"Copper","Tin","Zinc","Iron","Sulfur","Emerald","Ruby","Sapphire","Mithril","Demetal","Diamond","Darksteel"}
+local oretable = {"Copper","Tin","Zinc","Iron","Sulfur","Emerald","Ruby","Sapphire","Mithril","Demetal","Diamond","Darksteel"}
 ------------------------------------Calls-----------------------------------------
 zlib:CTT("Chest",{
     HaveSlider = true,
@@ -33,7 +33,7 @@ zlib:CTT("Chest",{
 zlib:CTT("Mela",{
     HaveSlider = false
 })
-for i,v in pairs(ores) do
+for i,v in pairs(oretable) do
     zlib:CTT(i,{
         HaveSlider = false,
     })
