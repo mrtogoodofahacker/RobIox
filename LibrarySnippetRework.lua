@@ -66,7 +66,7 @@ function zlib:box(obj,name,list) -- Made by Throit
     local function Update()
         local run
         run = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if __Variables[name].HaveSlider == true then
+            if __Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") and zlib.__Tools.lp.Character:FindFirstChild("Humanoid").Health ~= 0 then
                 if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                 else
                     for i,v in pairs(ltable) do 
@@ -178,7 +178,7 @@ function zlib:text(obj,y,x,name,list) -- made by me
     local function updater()
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if __Variables[name].HaveSlider == true then
+            if __Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") and zlib.__Tools.lp.Character:FindFirstChild("Humanoid").Health ~= 0 then
                 if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                 else
                     txt.Visible = false
