@@ -25,7 +25,19 @@ local npcs = workspace.NPCs
 local originalpos
 -- rbxassetid://7042732937 is the hooked effect texture
 --[-------------------------------[ tables ]-----------------------------------]--
-
+local ores = {"Copper","Tin","Zinc","Iron","Sulfur","Emerald","Ruby","Sapphire","Mithril","Demetal","Diamond","Darksteel"}
+------------------------------------Calls-----------------------------------------
+zlib:CTT("Chest",{
+    HaveSlider = true,
+}) -- CTT = CreateToggleTable
+zlib:CTT("Mela",{
+    HaveSlider = false
+})
+for i,v in pairs(ores) do
+    zlib:CTT(i,{
+        HaveSlider = false,
+    })
+end
 --[------------------------------[ Functions ]---------------------------------]--
 local function updatelist(list)
 	list:SetValues()
@@ -35,7 +47,6 @@ end
 local function addore(ore)
     if ore:IsA("Part") and ore.Name == "Part" then
         for i,v in pairs(ore:GetChildren()) do
-            zlib:CTT(v.Name)
             zlib:text(v,-2,0,v.Name,{
                 Text = v.Name,
                 Visible = false,
@@ -48,13 +59,6 @@ local function addore(ore)
         end
     end
 end
-------------------------------------Calls-----------------------------------------
-zlib:CTT("Chest",{
-    HaveSlider = true,
-}) -- CTT = CreateToggleTable
-zlib:CTT("Mela",{
-    HaveSlider = false
-})
 -------------------------------------Code-----------------------------------------
 --[[
 if game.PlaceVersion >= gversion then
