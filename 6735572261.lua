@@ -33,11 +33,6 @@ zlib:CTT("Chest",{
 zlib:CTT("Mela",{
     HaveSlider = false
 })
-for i,v in pairs(oretable) do
-    zlib:CTT(i,{
-        HaveSlider = false,
-    })
-end
 --[------------------------------[ Functions ]---------------------------------]--
 local function updatelist(list)
 	list:SetValues()
@@ -47,11 +42,7 @@ end
 local function addore(ore)
     if ore:IsA("Part") and ore.Name == "Part" then
         for i,v in pairs(ore:GetChildren()) do
-	    if table.find(__Variables, v.Name) then
-               
-            else
-                zlib:CTT(v.Name)
-            end
+	    zlib:CTT(v.Name)
             zlib:text(v,-2,0,v.Name,{
                 Text = v.Name,
                 Visible = false,
