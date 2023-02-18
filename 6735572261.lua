@@ -244,15 +244,6 @@ Toggles.ShowGemShop:OnChanged(function()
     __Variables["Mela"].Title = Toggles.ShowGemShop.Value
 end)
 
-Toggles.AutofarmChest:OnChanged(function()
-    if Toggles.AutofarmChest.Value == true then
-        originalpos = chr.HumanoidRootPart.CFrame
-    elseif Toggles.AutofarmChest.Value == true and originalpos ~= nil then
-        chr:PivotTo(originalpos)
-    end
-    farmchest = Toggles.AutofarmChest.Value
-end)
-
 ores.DescendantAdded:Connect(function(v)
     addore(v)
 end)
