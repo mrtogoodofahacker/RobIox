@@ -23,6 +23,7 @@ function zlib:CTT(name,Optional)
             end 
         end
     end
+    return true
 end
 
 local function CreateToggleTable(name,Optional)
@@ -42,7 +43,11 @@ local function CreateToggleTable(name,Optional)
             end 
         end
     end
-    return true
+    if table.find(__Variables,name) then
+        return true
+    else
+        print("Error "..name.." failed to initalize")
+    end
 end
 local function newdraw(t,table,snd)
     local txt = Drawing.new(t)
@@ -64,9 +69,6 @@ end
 
 function zlib:box(obj,name,list) -- Made by Throit
     repeat task.wait() until CreateToggleTable(name)
-    if table.find(__Variables,name) == nil then
-        repeat task.wait() until CreateToggleTable(name)
-    end
     local part = obj
     local ltable = {
         line1 = newdraw("Line",list),
@@ -185,9 +187,6 @@ end
 
 function zlib:text(obj,y,x,name,list) -- made by me
     repeat task.wait() until CreateToggleTable(name)
-    if table.find(__Variables,name) == nil then
-        repeat task.wait() until CreateToggleTable(name)
-    end
     local txt = newdraw("Text",list)
     local function updater()
         local c
