@@ -20,19 +20,18 @@ local selectedore = "Copper"
 local autofish = false
 local farmchest = false
 local farmores = false
+local nowepcd = false
+local norollcd = false
+local meteornotif = false
 local npcs = workspace.NPCs
+local mobs = workspace.Mobs
+local backpack = lp.Backpack
 --local gversion = 21344
 local originalpos
 -- rbxassetid://7042732937 is the hooked effect texture
 --[-------------------------------[ tables ]-----------------------------------]--
-local oretable = {"Copper","Tin","Zinc","Iron","Sulfur","Emerald","Ruby","Sapphire","Mithril","Demetal","Diamond","Darksteel"}
-------------------------------------Calls-----------------------------------------
-zlib:CTT("Chest",{
-    HaveSlider = true,
-}) -- CTT = CreateToggleTable
-zlib:CTT("Mela",{
-    HaveSlider = false
-})
+local storage = {}
+
 --[------------------------------[ Functions ]---------------------------------]--
 local function updatelist(list)
 	list:SetValues()
@@ -42,7 +41,11 @@ end
 local function addore(ore)
     if ore:IsA("Part") and ore.Name == "Part" then
         for i,v in pairs(ore:GetChildren()) do
-	    zlib:CTT(v.Name)
+            if table.find(__Variables, v.Name) then
+               
+            else
+                zlib:CTT(v.Name)
+            end
             zlib:text(v,-2,0,v.Name,{
                 Text = v.Name,
                 Visible = false,
@@ -55,6 +58,12 @@ local function addore(ore)
         end
     end
 end
+-------------------------------------Calls----------------------------------------
+zlib:CTT("Chest",{
+    HaveSlider = true
+}) 
+-- since it isn't created until a meteor mob spawns
+zlib:CTT("MeteorMob")
 -------------------------------------Code-----------------------------------------
 --[[
 if game.PlaceVersion >= gversion then
@@ -76,6 +85,7 @@ local window = lib:CreateWindow({
 local Tabs = {
     esptab = window:AddTab("Esp"),
     autotab = window:AddTab("Autofarms"),
+    exploittab = window:AddTab("Exploits"),
     --unsafetab = window:AddTab("Unsafe"),
     settingtab = window:AddTab("Settings"),
 }
@@ -132,6 +142,22 @@ miscespgroup:AddToggle("ShowGemShop",{
     Tooltip = "Shows gem shop",
 })
 
+local meteorgroup = Tabs.esptab:AddLeftGroupbox("Meteor")
+
+meteorgroup:AddToggle("MeteorNotify",{
+    Text = 'Meteor Notification',
+    Default = false,
+    Tooltip = "Makes a notification in the top left corner"
+})
+
+meteorgroup:AddToggle("MeteorMob",{
+    Text = "Show Meteor Mobs",
+    Default = false,
+    Tooltip = "Shows meteor mobs",
+})
+
+local meteorlabel = meteorgroup:AddLabel("test")
+
 local fishgroup = Tabs.autotab:AddLeftGroupbox("AutoFish (Beta)")
 
 fishgroup:AddToggle("AutoFish",{
@@ -146,17 +172,57 @@ fishgroup:AddToggle("AutoFish",{
     NoUI = false,
 })
 
-fishgroup:AddLabel("Point mouse at close waters (30stds)")
+fishgroup:AddLabel("Have water on the btm right corner")
 fishgroup:AddLabel("This obviously requires a fishing rod")
+--[[
+local cooldowngroup = Tabs.exploittab:AddLeftGroupbox("Cooldowns")
 
+cooldowngroup:AddToggle("NoWeaponCooldown",{
+    Text = "No Weapon Cooldown",
+    Default = false,
+    Tooltip = "Self explanatory",
+})
+
+cooldowngroup:AddToggle("NoRoolCooldown",{
+    Text = "No Roll Cooldown",
+    Default = false,
+    Tooltip = "Self explanatory",
+})
+
+local stackgroup = Tabs.exploittab:AddRightGroupbox("Weapon Stacker") -- This is all marked out because it doesn't work at all
+
+stackgroup:AddDropdown("StackSelection",{
+    Values = {},
+    Default = 1,
+    Multi = true,
+    Text = "Selection",
+    Tooltip = "Select weapons to stack",
+})
+
+stackgroup:AddButton("Stack Weapons",function()
+    if Options.StackSelection.Value ~= nil then
+        for i,v in pairs(storage) do
+            for a,b in pairs(Options.StackSelection.Value) do
+                if v.Name == a then
+                    v.Parent = chr
+                    task.wait(1)
+                end
+            end
+        end
+    end
+end)
+]]--
 --local unsafeleftgroup = Tabs.unsafetab:AddLeftGroupbox("Auto")
 --unsafeleftgroup:AddLabel("Use this stuff at your own risk!")
+
 
 for i,v in pairs(chests:GetChildren()) do
     if v:FindFirstChild("Root") then
         local root = v.Root
         zlib:box(root,"Chest",{
             Color = Color3.fromRGB(126, 91, 52),
+        },{
+            HaveSlider = true
         })
         zlib:text(root,-2, 0,"Chest",{
             Text = "Chest",
@@ -166,6 +232,8 @@ for i,v in pairs(chests:GetChildren()) do
             OutlineColor = Color3.fromRGB(0, 0, 0),
             Center = true,
             Font = 2,
+        },{
+            HaveSlider = true
         })
     end
 end
@@ -175,6 +243,8 @@ for i,v in pairs(goldchests:GetChildren()) do
         local root = v.Root
         zlib:box(root,"Chest",{
             Color = Color3.fromRGB(233, 218, 12),
+        },{
+            HaveSlider = true
         })
         zlib:text(root,-2, 0,"Chest",{
             Text = "Gold Chest",
@@ -184,6 +254,8 @@ for i,v in pairs(goldchests:GetChildren()) do
             OutlineColor = Color3.fromRGB(0, 0, 0),
             Center = true,
             Font = 2,
+        },{
+            HaveSlider = true
         })
     end
 end
@@ -244,8 +316,58 @@ Toggles.ShowGemShop:OnChanged(function()
     __Variables["Mela"].Title = Toggles.ShowGemShop.Value
 end)
 
+Toggles.MeteorNotify:OnChanged(function()
+    meteornotif = Toggles.MeteorNotify.Value
+end)
+
+Toggles.MeteorMob:OnChanged(function()
+    __Variables["MeteorMob"].Toggle = Toggles.MeteorMob.Value
+    __Variables["MeteorMob"].Title = Toggles.MeteorMob.Value
+end)
+--[[
+Toggles.NoWeaponCooldown:OnChanged(function()
+    nowepcd = Toggles.NoWeaponCooldown.Value
+end)
+
+Toggles.NoRoolCooldown:OnChanged(function()
+    norollcd = Toggles.NoRoolCooldown.Value
+end)
+]]--
 ores.DescendantAdded:Connect(function(v)
     addore(v)
+end)
+--[[
+for i,v in pairs(backpack:GetChildren()) do 
+    table.insert(Options.StackSelection.Values,v.Name)
+    table.insert(storage,v)
+    updatelist(Options.StackSelection)
+end
+
+backpack.ChildAdded:Connect(function(child)
+    table.insert(Options.StackSelection.Values,child.Name)
+    table.insert(storage,child)
+    updatelist(Options.StackSelection)
+end)
+backpack.ChildRemoved:Connect(function(child)
+    table.remove(Options.StackSelection.Values, table.find(Options.StackSelection.Values, child.Name))
+    table.insert(storage,child)
+    updatelist(Options.StackSelection)
+end)
+]]--
+
+mobs.ChildAdded:Connect(function(child)
+    repeat task.wait() until child:FindFirstChild("HumanoidRootPart")
+    if child:GetAttribute("Meteor") or string.find(child:GetAttribute("Nickname"), "Meteor") then
+        zlib:text(child.HumanoidRootPart,-2,0,"MeteorMob",{
+            Text = tostring(child:GetAttribute("Nickname")),
+            Color = child:GetAttribute("Meteor"),
+            Visible = false,
+            Outline = true,
+            OutlineColor = Color3.fromRGB(0,0,0),
+            Center = true,
+            Font = 2,
+        })
+    end
 end)
 
 chests.ChildAdded:Connect(function(v)
@@ -253,6 +375,8 @@ chests.ChildAdded:Connect(function(v)
         local root = v.Root
         zlib:box(root,"Chest",{
             Color = Color3.fromRGB(126, 91, 52),
+        },{
+            HaveSlider = true
         })
         zlib:text(root,-2, 0,"Chest",{
             Text = "Chest",
@@ -262,8 +386,21 @@ chests.ChildAdded:Connect(function(v)
             OutlineColor = Color3.fromRGB(0, 0, 0),
             Center = true,
             Font = 2,
+        },{
+            HaveSlider = true
         })
     end
+end)
+
+workspace.ChildAdded:Connect(function(child)
+    if child.Name == "Meteor" and meteornotif == true then
+        lib:Notify("A meteor has spawned!",7)
+    end
+end)
+
+meteorlabel.TextLabel.Text = "Meteor spawns in "..tostring((game:GetService("ReplicatedStorage").GameInfo.Meteor.Value * 4)).." seconds."
+game:GetService("ReplicatedStorage").GameInfo.Meteor.Changed:Connect(function()
+    meteorlabel.TextLabel.Text = "Meteor spawns in "..tostring((game:GetService("ReplicatedStorage").GameInfo.Meteor.Value * 4)).." seconds."
 end)
 
 local clickdb = false
