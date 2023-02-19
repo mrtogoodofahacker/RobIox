@@ -13,6 +13,8 @@ function zlib:CTT(name,Optional)
         __Variables[name] = {
             Toggle = false,
             HaveSlider = false,
+            Box = false,
+            Title = false,
             Slider = 0,
         }
         if Optional and typeof(Optional) == "table" then
@@ -23,6 +25,24 @@ function zlib:CTT(name,Optional)
     end
 end
 
+local function CreateToggleTable(name,Optional)
+    if table.find(__Variables, name) ~= nil then
+        print(__Variables[name].HaveSlider)
+    elseif table.find(__Variables, name) == nil then
+        __Variables[name] = {
+            Toggle = false,
+            HaveSlider = false,
+            Box = false,
+            Title = false,
+            Slider = 0,
+        }
+        if Optional and typeof(Optional) == "table" then
+            for i,v in pairs(Optional) do
+               __Variables[name][i] = v 
+            end 
+        end
+    end
+end
 local function newdraw(t,table,snd)
     local txt = Drawing.new(t)
     if table and typeof(table) == "table" then
@@ -46,10 +66,9 @@ function zlib:box(obj,name,list) -- Made by Throit
     
     else
         if table.find(__Variables, name) then
-            __Variables[name].Box = false
+
         else
-            zlib:CTT(name)
-            __Variables[name].Box = false
+            CreateToggleTable(name)
         end
     end
     local part = obj
@@ -173,10 +192,8 @@ function zlib:text(obj,y,x,name,list) -- made by me
     
     else
         if table.find(__Variables, name) then
-            __Variables[name].Title = false
         else
-            zlib:CTT(name)
-            __Variables[name].Title = false
+            CreateToggleTable(name)
         end
     end
 
