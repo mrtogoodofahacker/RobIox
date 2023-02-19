@@ -63,15 +63,7 @@ local function newdraw(t,table,snd)
 end
 
 function zlib:box(obj,name,list) -- Made by Throit
-    if name == nil or "" then
-    
-    else
-        if table.find(__Variables, name) then
-
-        else
-            repeat task.wait() until CreateToggleTable(name)
-        end
-    end
+    repeat task.wait() until CreateToggleTable(name)
     local part = obj
     local ltable = {
         line1 = newdraw("Line",list),
@@ -189,15 +181,7 @@ function zlib:box(obj,name,list) -- Made by Throit
 end
 
 function zlib:text(obj,y,x,name,list) -- made by me
-    if name == nil or "" then
-    
-    else
-        if table.find(__Variables, name) then
-        else
-            CreateToggleTable(name)
-        end
-    end
-
+    repeat task.wait() until CreateToggleTable(name)
     local txt = newdraw("Text",list)
     local function updater()
         local c
