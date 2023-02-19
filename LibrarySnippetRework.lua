@@ -28,7 +28,7 @@ end
 local function CreateToggleTable(name,Optional)
     if table.find(__Variables, name) ~= nil then
         print(__Variables[name].HaveSlider)
-    elseif table.find(__Variables, name) == nil then
+    else
         __Variables[name] = {
             Toggle = false,
             HaveSlider = false,
@@ -42,6 +42,7 @@ local function CreateToggleTable(name,Optional)
             end 
         end
     end
+    return true
 end
 local function newdraw(t,table,snd)
     local txt = Drawing.new(t)
@@ -68,7 +69,7 @@ function zlib:box(obj,name,list) -- Made by Throit
         if table.find(__Variables, name) then
 
         else
-            CreateToggleTable(name)
+            repeat task.wait() until CreateToggleTable(name)
         end
     end
     local part = obj
