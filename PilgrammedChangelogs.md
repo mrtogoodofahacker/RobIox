@@ -1,8 +1,14 @@
 # Changelogs
+### Notes
+* The script might break since I'm working on the esp library for it.
+
 ### Upcoming
-* Meteor notifications
-* Esp for meteor enemies
-* teleport to old fart (Big if)
+* AC Bypass (If I can find the damn thing)
+
+## 2/19/2023
+* Added Meteor notifications
+* Added esp for meteor enemies
+* Added a label that tells you when a meteor will spawn (it will stay at 1000 until the timer goes down)
 
 ## 2/17/2023
 * Added esp for the traveling shop
