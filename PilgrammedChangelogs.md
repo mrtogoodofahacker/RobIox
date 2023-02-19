@@ -1,6 +1,7 @@
 # Changelogs
 ### Notes
 * The script might break since I'm working on the esp library for it.
+* you have to toggle the meteor mob esp off and on to see it (working on a fix)
 
 ### Upcoming
 * AC Bypass (If I can find the damn thing)
