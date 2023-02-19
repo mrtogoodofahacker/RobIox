@@ -65,8 +65,8 @@ local function newdraw(t,table,snd)
     return txt
 end
 
-function zlib:box(obj,name,list) -- Made by Throit
-    repeat task.wait() until CreateToggleTable(name)
+function zlib:box(obj,name,list,optional) -- Made by Throit
+    repeat task.wait() until CreateToggleTable(name,optional)
     local part = obj
     local ltable = {
         line1 = newdraw("Line",list),
@@ -183,8 +183,8 @@ function zlib:box(obj,name,list) -- Made by Throit
     return ltable
 end
 
-function zlib:text(obj,y,x,name,list) -- made by me
-    repeat task.wait() until CreateToggleTable(name)
+function zlib:text(obj,y,x,name,list,optional) -- made by me
+    repeat task.wait() until CreateToggleTable(name,optional)
     local txt = newdraw("Text",list)
     local function updater()
         local c
