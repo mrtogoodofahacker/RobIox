@@ -23,14 +23,10 @@ function zlib:CTT(name,Optional)
             end 
         end
     end
-        repeat task.wait() until __Variables[name] ~= nil
     return true
 end
 
 local function CreateToggleTable(name,Optional)
-    if table.find(__Variables, name) ~= nil then
-        print(__Variables[name].HaveSlider)
-    else
         __Variables[name] = {
             Toggle = false,
             HaveSlider = false,
@@ -43,8 +39,6 @@ local function CreateToggleTable(name,Optional)
                __Variables[name][i] = v 
             end 
         end
-    end
-    repeat task.wait() until __Variables[name] ~= nil
     return true
 end
 local function newdraw(t,table,snd)
@@ -66,7 +60,17 @@ local function newdraw(t,table,snd)
 end
 
 function zlib:box(obj,name,list,optional) -- Made by Throit
-    repeat task.wait() until CreateToggleTable(name,optional)
+    if name ~= nil or name ~= "" then
+        if table.find(__Variables,name) then
+            if table.find(__Variables[name],"HaveSlider") then
+                
+            else
+               __Variables[name].HaveSlider = false 
+            end
+        else
+            CreateToggleTable(name,optional) 
+        end
+    end
     local part = obj
     local ltable = {
         line1 = newdraw("Line",list),
@@ -184,7 +188,17 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
 end
 
 function zlib:text(obj,y,x,name,list,optional) -- made by me
-    repeat task.wait() until CreateToggleTable(name,optional)
+    if name ~= nil or name ~= "" then
+        if table.find(__Variables,name) then
+            if table.find(__Variables[name],"HaveSlider") then
+                
+            else
+               __Variables[name].HaveSlider = false 
+            end
+        else
+            CreateToggleTable(name,optional) 
+        end
+    end
     local txt = newdraw("Text",list)
     local function updater()
         local c
