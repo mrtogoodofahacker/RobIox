@@ -7,7 +7,7 @@ zlib.__Tools.plrs = game:GetService("Players")
 getgenv().__Variables = {}
 
 function zlib:CTT(name,Optional)
-    if table.find(__Variables, name) then
+    if table.find(__Variables, name) ~= nil then
         
     else
         __Variables[name] = {
