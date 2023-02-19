@@ -23,6 +23,7 @@ function zlib:CTT(name,Optional)
             end 
         end
     end
+        repeat task.wait() until __Variables[name] ~= nil
     return true
 end
 
