@@ -7,15 +7,19 @@ zlib.__Tools.plrs = game:GetService("Players")
 getgenv().__Variables = {}
 
 function zlib:CTT(name,Optional)
-    __Variables[name] = {
-        Toggle = false,
-        HaveSlider = false,
-        Slider = 0,
-    }
-    if Optional and typeof(Optional) == "table" then
-        for i,v in pairs(Optional) do
-           __Variables[name][i] = v 
-        end 
+    if table.find(__Variables, name) then
+        
+    else
+        __Variables[name] = {
+            Toggle = false,
+            HaveSlider = false,
+            Slider = 0,
+        }
+        if Optional and typeof(Optional) == "table" then
+            for i,v in pairs(Optional) do
+               __Variables[name][i] = v 
+            end 
+        end
     end
 end
 
@@ -44,7 +48,7 @@ function zlib:box(obj,name,list) -- Made by Throit
         if table.find(__Variables, name) then
             __Variables[name].Box = false
         else
-            __Variables[name] = {}
+            zlib:CTT(name)
             __Variables[name].Box = false
         end
     end
@@ -169,7 +173,7 @@ function zlib:text(obj,y,x,name,list) -- made by me
         if table.find(__Variables, name) then
             __Variables[name].Title = false
         else
-            __Variables[name] = {}
+            zlib:CTT(name)
             __Variables[name].Title = false
         end
     end
