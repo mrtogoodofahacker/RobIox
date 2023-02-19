@@ -8,8 +8,8 @@ getgenv().__Variables = {}
 
 function zlib:CTT(name,Optional)
     if table.find(__Variables, name) ~= nil then
-        
-    else
+        print(__Variables[name].HaveSlider)
+    elseif table.find(__Variables, name) == nil then
         __Variables[name] = {
             Toggle = false,
             HaveSlider = false,
