@@ -93,7 +93,6 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
     local function Update()
         local run
         run = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if table.find(__Variables[name],"HaveSlider") then
                 if __Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
                     if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                     else
@@ -103,7 +102,6 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
                         return
                     end
                 end
-            end
             if __Variables[name].Toggle == true and __Variables[name].Box == true then else for i,v in pairs(ltable) do v.Visible = false end return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(part.Position)
             if onscreen then
@@ -207,7 +205,6 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
     local function updater()
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if table.find(__Variables,"HaveSlider") then
                 if __Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
                     if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                     else
@@ -215,7 +212,6 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
                         return
                     end
                 end
-            end
             if __Variables[name].Toggle == true and __Variables[name].Title == true then else txt.Visible = false return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(obj.Position)
             if onscreen then
