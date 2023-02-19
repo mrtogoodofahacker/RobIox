@@ -43,11 +43,8 @@ local function CreateToggleTable(name,Optional)
             end 
         end
     end
-    if table.find(__Variables,name) then
-        return true
-    else
-        print("Error "..name.." failed to initalize")
-    end
+    repeat task.wait() until __Variables[name] ~= nil
+    return true
 end
 local function newdraw(t,table,snd)
     local txt = Drawing.new(t)
