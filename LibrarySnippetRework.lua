@@ -17,7 +17,7 @@ function zlib:CTT(name,Optional)
             Title = false,
             Slider = 0,
         }
-        if Optional and typeof(Optional) == "table" then
+        if Optional ~= nil and typeof(Optional) == "table" then
             for i,v in pairs(Optional) do
                __Variables[name][i] = v 
             end 
@@ -34,7 +34,7 @@ local function CreateToggleTable(name,Optional)
             Title = false,
             Slider = 0,
         }
-        if Optional and typeof(Optional) == "table" then
+        if Optional ~= nil and typeof(Optional) == "table" then
             for i,v in pairs(Optional) do
                __Variables[name][i] = v 
             end 
