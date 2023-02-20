@@ -4,47 +4,9 @@ zlib.__Tools.camera = workspace.CurrentCamera
 zlib.__Tools.RS = game:GetService("RunService")
 zlib.__Tools.lp = game:GetService("Players").LocalPlayer
 zlib.__Tools.plrs = game:GetService("Players")
-getgenv().__Variables = {}
+getgenv().Variables = {}
 
-function zlib:CTT(name,Optional)
-    if table.find(__Variables, name) ~= nil then
-        if Optional ~= nil and typeof(Optional) == "table" then
-            for i,v in pairs(Optional) do
-               __Variables[name][i] = v 
-            end 
-        end
-    elseif table.find(__Variables, name) == nil then
-        __Variables[name] = {
-            Toggle = false,
-            HaveSlider = false,
-            Box = false,
-            Title = false,
-            Slider = 0,
-        }
-        if Optional ~= nil and typeof(Optional) == "table" then
-            for i,v in pairs(Optional) do
-               __Variables[name][i] = v 
-            end 
-        end
-    end
-    return true
-end
 
-local function CreateToggleTable(name,Optional)
-        __Variables[name] = {
-            Toggle = false,
-            HaveSlider = false,
-            Box = false,
-            Title = false,
-            Slider = 0,
-        }
-        if Optional ~= nil and typeof(Optional) == "table" then
-            for i,v in pairs(Optional) do
-               __Variables[name][i] = v 
-            end 
-        end
-    return true
-end
 local function newdraw(t,table,snd)
     local txt = Drawing.new(t)
     if table and typeof(table) == "table" then
@@ -66,13 +28,15 @@ end
 function zlib:box(obj,name,list,optional) -- Made by Throit
     if name ~= nil or name ~= "" then
         if table.find(__Variables,name) then
-            if table.find(__Variables[name],"HaveSlider") then
-                
-            else
-               __Variables[name].HaveSlider = false 
-            end
+
         else
-            CreateToggleTable(name,optional) 
+            Variables[name] = {
+                ["Toggle"] = false,
+                ["HaveSlider"] = false,
+                ["Slider"] = 0,
+                ["Box"] = false,
+                ["Title"] = false,
+            } 
         end
     end
     local part = obj
@@ -93,8 +57,8 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
     local function Update()
         local run
         run = zlib.__Tools.RS.RenderStepped:Connect(function()
-                if __Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
-                    if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
+                if Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
+                    if Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                     else
                         for i,v in pairs(ltable) do 
                                 v.Visible = false 
@@ -102,7 +66,7 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
                         return
                     end
                 end
-            if __Variables[name].Toggle == true and __Variables[name].Box == true then else for i,v in pairs(ltable) do v.Visible = false end return end
+            if Variables[name].Toggle == true and Variables[name].Box == true then else for i,v in pairs(ltable) do v.Visible = false end return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(part.Position)
             if onscreen then
                 local X = part.Size.X/2
@@ -192,27 +156,29 @@ end
 function zlib:text(obj,y,x,name,list,optional) -- made by me
     if name ~= nil or name ~= "" then
         if table.find(__Variables,name) then
-            if table.find(__Variables[name],"HaveSlider") then
-                
-            else
-               __Variables[name].HaveSlider = false 
-            end
+
         else
-            CreateToggleTable(name,optional) 
+            Variables[name] = {
+                ["Toggle"] = false,
+                ["HaveSlider"] = false,
+                ["Slider"] = 0,
+                ["Box"] = false,
+                ["Title"] = false,
+            } 
         end
     end
     local txt = newdraw("Text",list)
     local function updater()
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
-                if __Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
-                    if __Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
+                if Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
+                    if Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                     else
                         txt.Visible = false
                         return
                     end
                 end
-            if __Variables[name].Toggle == true and __Variables[name].Title == true then else txt.Visible = false return end
+            if Variables[name].Toggle == true and Variables[name].Title == true then else txt.Visible = false return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(obj.Position)
             if onscreen then
                 txt.Visible = true
