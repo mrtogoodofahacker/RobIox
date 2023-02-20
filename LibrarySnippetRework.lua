@@ -27,7 +27,7 @@ end
 
 function zlib:box(obj,name,list,optional) -- Made by Throit
     if name ~= nil or name ~= "" then
-        if table.find(__Variables,name) then
+        if Variables[name] then
 
         else
             Variables[name] = {
@@ -155,7 +155,7 @@ end
 
 function zlib:text(obj,y,x,name,list,optional) -- made by me
     if name ~= nil or name ~= "" then
-        if table.find(__Variables,name) then
+        if Variables[name] then
 
         else
             Variables[name] = {
