@@ -37,6 +37,11 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
                 ["Box"] = false,
                 ["Title"] = false,
             } 
+            if optional and typeof(optional) == "table" then
+               for i,v in pairs(optional) do
+                  Variables[name][i] = v  
+               end
+            end
         end
     end
     local part = obj
@@ -165,6 +170,11 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
                 ["Box"] = false,
                 ["Title"] = false,
             } 
+            if optional and typeof(optional) == "table" then
+               for i,v in pairs(optional) do
+                  Variables[name][i] = v  
+               end
+            end
         end
     end
     local txt = newdraw("Text",list)
