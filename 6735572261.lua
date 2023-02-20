@@ -41,11 +41,6 @@ end
 local function addore(ore)
     if ore:IsA("Part") and ore.Name == "Part" then
         for i,v in pairs(ore:GetChildren()) do
-            if table.find(__Variables, v.Name) then
-               
-            else
-                zlib:CTT(v.Name)
-            end
             zlib:text(v,-2,0,v.Name,{
                 Text = v.Name,
                 Visible = false,
@@ -59,11 +54,7 @@ local function addore(ore)
     end
 end
 -------------------------------------Calls----------------------------------------
-zlib:CTT("Chest",{
-    HaveSlider = true
-}) 
--- since it isn't created until a meteor mob spawns
-zlib:CTT("MeteorMob")
+
 -------------------------------------Code-----------------------------------------
 --[[
 if game.PlaceVersion >= gversion then
@@ -281,30 +272,30 @@ for i,v in pairs(ores:GetChildren()) do
 end
 
 Toggles.ShowChests:OnChanged(function()
-    __Variables["Chest"].Toggle = Toggles.ShowChests.Value
+    Variables["Chest"].Toggle = Toggles.ShowChests.Value
 end)
 
 Toggles.ShowChestBox:OnChanged(function()
-    __Variables["Chest"].Box = Toggles.ShowChestBox.Value
+    Variables["Chest"].Box = Toggles.ShowChestBox.Value
 end)
 
 Toggles.ShowChestTitle:OnChanged(function()
-    __Variables["Chest"].Title = Toggles.ShowChestTitle.Value
+    Variables["Chest"].Title = Toggles.ShowChestTitle.Value
 end)
 
 Options.ChestSlider:OnChanged(function()
-    __Variables["Chest"].Slider = Options.ChestSlider.Value
+    Variables["Chest"].Slider = Options.ChestSlider.Value
 end)
 
 Options.SelectOre:OnChanged(function()
     selectedore = Options.SelectOre.Value
-    local title = __Variables[selectedore].Title
+    local title = Variables[selectedore].Title
     Toggles.ShowOreTitle:SetValue(title)
 end)
 
 Toggles.ShowOreTitle:OnChanged(function()
-    __Variables[selectedore].Toggle = Toggles.ShowOreTitle.Value -- would do box esp as well but its too laggy
-    __Variables[selectedore].Title = Toggles.ShowOreTitle.Value
+    Variables[selectedore].Toggle = Toggles.ShowOreTitle.Value -- would do box esp as well but its too laggy
+    Variables[selectedore].Title = Toggles.ShowOreTitle.Value
 end)
 
 Toggles.AutoFish:OnChanged(function()
@@ -312,8 +303,8 @@ Toggles.AutoFish:OnChanged(function()
 end)
 
 Toggles.ShowGemShop:OnChanged(function()
-    __Variables["Mela"].Toggle = Toggles.ShowGemShop.Value
-    __Variables["Mela"].Title = Toggles.ShowGemShop.Value
+    Variables["Mela"].Toggle = Toggles.ShowGemShop.Value
+    Variables["Mela"].Title = Toggles.ShowGemShop.Value
 end)
 
 Toggles.MeteorNotify:OnChanged(function()
@@ -321,8 +312,8 @@ Toggles.MeteorNotify:OnChanged(function()
 end)
 
 Toggles.MeteorMob:OnChanged(function()
-    __Variables["MeteorMob"].Toggle = Toggles.MeteorMob.Value
-    __Variables["MeteorMob"].Title = Toggles.MeteorMob.Value
+    Variables["MeteorMob"].Toggle = Toggles.MeteorMob.Value
+    Variables["MeteorMob"].Title = Toggles.MeteorMob.Value
 end)
 --[[
 Toggles.NoWeaponCooldown:OnChanged(function()
