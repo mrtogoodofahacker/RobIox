@@ -5,7 +5,6 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))
 local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 local rocks = workspace.World.RockRegions
 local trees = workspace.World.TreeRegions
-local event = game:GetService("Workspace").World.RockRegions['2MEvent']
 local selected = "Mythril"
 local ores = {
     Magnetite = {
