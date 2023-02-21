@@ -32,6 +32,13 @@ local originalpos
 --[-------------------------------[ tables ]-----------------------------------]--
 local storage = {}
 
+Variables["MeteorMob"] = {
+    ["Toggle"] = false,
+    ["HaveSlider"] = false,
+    ["Slider"] = 0,
+    ["Box"] = false,
+    ["Title"] = false,
+}
 --[------------------------------[ Functions ]---------------------------------]--
 local function updatelist(list)
 	list:SetValues()
@@ -212,6 +219,8 @@ for i,v in pairs(chests:GetChildren()) do
         local root = v.Root
         zlib:box(root,"Chest",{
             Color = Color3.fromRGB(126, 91, 52),
+        },{
+            ["HaveSlider"] = true
         })
         zlib:text(root,-2, 0,"Chest",{
             Text = "Chest",
@@ -221,6 +230,8 @@ for i,v in pairs(chests:GetChildren()) do
             OutlineColor = Color3.fromRGB(0, 0, 0),
             Center = true,
             Font = 2,
+        },{
+            ["HaveSlider"] = true
         })
     end
 end
@@ -230,6 +241,8 @@ for i,v in pairs(goldchests:GetChildren()) do
         local root = v.Root
         zlib:box(root,"Chest",{
             Color = Color3.fromRGB(233, 218, 12),
+        },{
+            ["HaveSlider"] = true
         })
         zlib:text(root,-2, 0,"Chest",{
             Text = "Gold Chest",
@@ -239,6 +252,8 @@ for i,v in pairs(goldchests:GetChildren()) do
             OutlineColor = Color3.fromRGB(0, 0, 0),
             Center = true,
             Font = 2,
+        },{
+            ["HaveSlider"] = true
         })
     end
 end
@@ -319,6 +334,7 @@ end)
 ores.DescendantAdded:Connect(function(v)
     addore(v)
 end)
+
 --[[
 for i,v in pairs(backpack:GetChildren()) do 
     table.insert(Options.StackSelection.Values,v.Name)
@@ -358,6 +374,8 @@ chests.ChildAdded:Connect(function(v)
         local root = v.Root
         zlib:box(root,"Chest",{
             Color = Color3.fromRGB(126, 91, 52),
+        },{
+            ["HaveSlider"] = true
         })
         zlib:text(root,-2, 0,"Chest",{
             Text = "Chest",
@@ -367,6 +385,8 @@ chests.ChildAdded:Connect(function(v)
             OutlineColor = Color3.fromRGB(0, 0, 0),
             Center = true,
             Font = 2,
+        },{
+            ["HaveSlider"] = true
         })
     end
 end)
