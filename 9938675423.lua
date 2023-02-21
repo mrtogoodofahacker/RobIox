@@ -52,9 +52,6 @@ local ores = {
 		["rbxassetid://12100885960"] = BrickColor.new("Flame reddish orange"),
 		["rbxassetid://12100885958"] = BrickColor.new("Flame reddish orange")
 	},
-	Ore = {
-		['2mevent'] = BrickColor.new("Mid gray")
-	},
 }
 
 local function hasProperty(object, prop)
@@ -157,16 +154,6 @@ Options.SelectOre:OnChanged(function()
 	--[[ Toggles.ShowBox:SetValue(box) ]]
 end)
 
-local mainrightgroupbox = Tabs.Main:AddRightGroupbox("2M Event")
-mainrightgroupbox:AddToggle("Eventoretitle",{
-	Text = "Show title",
-	Default = false,
-	Tooltip = "Shows esp title"
-})
-
-Toggles.Eventoretitle:OnChanged(function()
-    __Variables["Oretitle"] = Toggles.Eventoretitle.Value
-end)
 
 local settingsgroup = Tabs.settingtab:AddLeftGroupbox("Menu")
 settingsgroup:AddButton('Unload', function() lib:Unload() end)
