@@ -154,7 +154,7 @@ local Tabs = {
 
 local mainleftgroupbox = Tabs.Main:AddLeftGroupbox("Automatic stuff")
 mainleftgroupbox:AddDropdown("SelectOre", {
-	Values = { "Magnetite", "Adurite", "Bluesteel", "Mythril", "Cobalt", "Palladium", "Rosa Quartz", "Rose Gold", "Gold", "Iron", "Zinc", "Lithium", "Ink","Pyrite", "Quartz", "Tin", "Copper" },
+	Values = { "Magnetite", "Bluesteel", "Adurite", "Mythril", "Cobalt", "Palladium", "Rosa Quartz", "Rose Gold", "Gold", "Iron", "Zinc", "Lithium", "Ink","Pyrite", "Quartz", "Tin", "Copper" },
 	Default = 1,
 	Multi = false,
 	Text = "Ores",
