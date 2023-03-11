@@ -51,6 +51,39 @@ local ores = {
 		["rbxassetid://12100885960"] = BrickColor.new("Flame reddish orange"),
 		["rbxassetid://12100885958"] = BrickColor.new("Flame reddish orange")
 	},
+	Ink = {
+		["rbxassetid://12627880491"] = BrickColor.new("Black metallic"),
+	},
+	Bluesteel = {
+		["rbxassetid://12100885949"] = BrickColor.new("Steel blue"),
+		["rbxassetid://12100885963"] = BrickColor.new("Steel blue"),
+		["rbxassetid://12100885942"] = BrickColor.new("Steel blue"),
+	},
+	Lithium = {
+		["rbxassetid://12100885936"] = BrickColor.new("Dark grey"),
+		["rbxassetid://12100885933"] = BrickColor.new("Dark grey"),
+	},
+	Cobalt = {
+		["rbxassetid://12100885949"] = BrickColor.new("Burlap"),
+		["rbxassetid://12100885963"] = BrickColor.new("Burlap"),
+	},
+	Zinc = {
+		["rbxassetid://12100885963"] = BrickColor.new("Light lilac"),
+		["rbxassetid://12100885949"] = BrickColor.new("Light lilac"),
+	},
+	["Rose Gold"] = {
+		["rbxassetid://12100885942"] = BrickColor.new("Salmon"),
+		["rbxassetid://12100885963"] = BrickColor.new("Salmon"),
+	},
+	Palladium = {
+		["rbxassetid://12100885963"] = BrickColor.new("Light orange brown"),
+	},
+	Uranium = {
+		-- Still gotta find this one
+	},
+	Sand = {
+		["rbxassetid://12100886098"] = BrickColor.new("Buttermilk"),
+	}
 }
 
 local function hasProperty(object, prop)
@@ -121,7 +154,7 @@ local Tabs = {
 
 local mainleftgroupbox = Tabs.Main:AddLeftGroupbox("Automatic stuff")
 mainleftgroupbox:AddDropdown("SelectOre", {
-	Values = { "Magnetite", "Adurite", "Mythril", "Rosa Quartz", "Gold", "Iron", "Pyrite", "Quartz", "Tin", "Copper" },
+	Values = { "Magnetite", "Adurite", "Bluesteel", "Mythril", "Cobalt", "Palladium", "Rosa Quartz", "Rose Gold", "Gold", "Iron", "Zinc", "Lithium", "Ink","Pyrite", "Quartz", "Tin", "Copper" },
 	Default = 1,
 	Multi = false,
 	Text = "Ores",
