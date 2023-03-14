@@ -79,7 +79,12 @@ local ores = {
 		["rbxassetid://12100885963"] = BrickColor.new("Light orange brown"),
 	},
 	Uranium = {
-		-- Still gotta find this one
+		["rbxassetid://12100885942"] = BrickColor.new("Dirt brown"), -- Color3.fromRGB(70,81,50)
+		["rbxassetid://12100885949"] = BrickColor.new("Dirt brown"),
+		["rbxassetid://12100885963"] = BrickColor.new("Dirt brown"),
+	},
+	Obsidian = {
+		
 	},
 	Sand = {
 		["rbxassetid://12100886098"] = BrickColor.new("Buttermilk"),
@@ -154,7 +159,7 @@ local Tabs = {
 
 local mainleftgroupbox = Tabs.Main:AddLeftGroupbox("Automatic stuff")
 mainleftgroupbox:AddDropdown("SelectOre", {
-	Values = { "Magnetite", "Bluesteel", "Adurite", "Mythril", "Cobalt", "Palladium", "Rosa Quartz", "Rose Gold", "Gold", "Iron", "Zinc", "Lithium", "Ink","Pyrite", "Quartz", "Tin", "Copper" },
+	Values = { "Magnetite", "Uranium", "Bluesteel", "Adurite", "Mythril", "Cobalt", "Palladium", "Rosa Quartz", "Rose Gold", "Gold", "Iron", "Zinc", "Lithium", "Ink","Pyrite", "Quartz", "Tin", "Copper" },
 	Default = 1,
 	Multi = false,
 	Text = "Ores",
