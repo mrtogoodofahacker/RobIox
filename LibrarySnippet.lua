@@ -5,6 +5,7 @@ zlib.__Tools.RS = game:GetService("RunService")
 zlib.__Tools.lp = game:GetService("Players").LocalPlayer
 zlib.__Tools.plrs = game:GetService("Players")
 getgenv().__Variables = {}
+getgenv().Drawings = {}
 
 local function newdraw(t,table,snd)
     local txt = Drawing.new(t)
@@ -151,9 +152,13 @@ function zlib:text(obj,y,x,name,list) -- made by me
     end
 
     local txt = newdraw("Text",list)
+    table.insert(Drawings,txt)
     local function updater()
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
+            if table.find(Drawings,txt) == nil then
+               c:Disconnect()     
+            end
             if __Variables[name] == true then else txt.Visible = false return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(obj.Position)
             if onscreen then
