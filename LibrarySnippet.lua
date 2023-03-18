@@ -156,7 +156,7 @@ function zlib:text(obj,y,x,name,list) -- made by me
     local function updater()
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
-            if table.find(Drawings,txt) == nil then
+            if txt == nil then
                c:Disconnect()     
             end
             if __Variables[name] == true then else txt.Visible = false return end
