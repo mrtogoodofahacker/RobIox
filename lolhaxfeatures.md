@@ -48,7 +48,8 @@
     
 ## Visuals
   * Entities
-  
+        
+        Enabled
         Name
         Distance
         Chams
