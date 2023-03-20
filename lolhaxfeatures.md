@@ -19,6 +19,7 @@
     * Door Rate Limit Fix
     * Hiding Exiting Fix
     * Entity Viewing While Hiding (Firstperson, Thirdperson, Outside Looking At Entity)
+    
   * Exploits
     * Motor Replication
       * Only On Eyes
@@ -26,14 +27,17 @@
       * Head Pitch (-720 - 720)
       * Body Rotation (-180 - 180)
       * Randomize
+      
   * Bypass
     * Humanoid Parent Bypass
+    
   * Trolling
     * Closet Interact
     * Stun
     * Spam Others Tools
     * Break Painting Puzzle
     * Figure Push (Speed Boost, Pancake, Chaos, Slow down)
+    
   * Self
     * Anti-Snare
     * Anti-Dupe
@@ -41,6 +45,7 @@
     * Infinite Crucifix
     * Infinite Lock-Pick
     * Footsteps (Silent, Spam)
+    
 ## Visuals
   * Entities
   
@@ -48,6 +53,7 @@
         Distance
         Chams
         Color
+        
   * Players
     
         Enabled
@@ -55,6 +61,7 @@
         Distance
         Chams
         Color
+        
   * Items
     
         Enabled
@@ -62,10 +69,12 @@
         Distance
         Chams
         Color
+        
   * View
     * Body Chams
     * Invisible Body
     * Field Of View (0 - 120)
+    
 ## Movement
   * General
     * No Acceleration
