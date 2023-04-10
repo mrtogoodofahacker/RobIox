@@ -4,8 +4,27 @@ zlib.__Tools.camera = workspace.CurrentCamera
 zlib.__Tools.RS = game:GetService("RunService")
 zlib.__Tools.lp = game:GetService("Players").LocalPlayer
 zlib.__Tools.plrs = game:GetService("Players")
+zlib.CustomSupport = {
+    ["Trident Survival"] = 8130299583,
+}
+zlib.CustomCharacter = nil
+zlib.UsingLinoria = false
+local character
 getgenv().Variables = {}
 
+if table.find(zlib.CustomSupport,game.PlaceId) then
+    if game.PlaceId == 8130299583 then
+        zlib.CustomCharacter = workspace.Ignore --.LocalCharacter
+    end
+end
+
+task.spawn(function()
+    if zlib.UseCustomCharacter ~= nil then
+        if game.PlaceId == 8130299583 then
+            character = zlib.CustomCharacter:FindFirstChild("LocalCharacter")
+        end
+    end
+end)
 
 local function newdraw(t,table,snd)
     local txt = Drawing.new(t)
@@ -25,7 +44,7 @@ local function newdraw(t,table,snd)
     return txt
 end
 
-function zlib:box(obj,name,list,optional) -- Made by Throit
+function zlib:box(obj,name,list,optional) -- Made by Throit, modified by Zeta
     if name ~= nil or name ~= "" then
         if Variables[name] then
 
@@ -62,13 +81,25 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
     local function Update()
         local run
         run = zlib.__Tools.RS.RenderStepped:Connect(function()
-                if Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
-                    if Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
-                    else
-                        for i,v in pairs(ltable) do 
+                if Variables[name].HaveSlider == true then
+                    if zlib.UseCustomCharacter ~= nil and character ~= nil then
+                        if game.PlaceId == 8130299583 and character:FindFirstChild("Middle") then
+                            if Variables[name].Slider >= (obj.Position - character:FindFirstChild("Middle").Position).magnitude then
+                            else
+                                for i,v in pairs(ltable) do
+                                    v.Visible = false
+                                end
+                                return
+                            end
+                        end
+                    elseif zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
+                        if Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
+                        else
+                            for i,v in pairs(ltable) do 
                                 v.Visible = false 
-                        end 
-                        return
+                            end 
+                            return
+                        end
                     end
                 end
             if Variables[name].Toggle == true and Variables[name].Box == true then else for i,v in pairs(ltable) do v.Visible = false end return end
@@ -125,7 +156,14 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
                 ltable.line12.To = Vector2.new(Top4.X, Top4.Y)
 
                 if autothick then
-                    local distance = (zlib.__Tools.lp.Character:WaitForChild('HumanoidRootPart').Position - part.Position).magnitude
+                    local distance
+                    if zlib.CustomCharacter ~= nil then
+                        if game.PlaceId == 8130299583 then
+                            distance = (character:WaitForChild('Middle').Position - part.Position).magnitude
+                        end
+                    else
+                        distance = (zlib.__Tools.lp.Character:WaitForChild('HumanoidRootPart').Position - part.Position).magnitude
+                    end
                     local value = math.clamp(1/distance*100, 0.1, 4) --0.1 is min thickness, 6 is max
                     for u, x in pairs(ltable) do
                         x.Thickness = value
@@ -144,6 +182,9 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
                     x.Visible = false
                 end
             end
+            if ltable.line1 == nil then
+                run:Disconnect()
+            end
         end)
         obj.AncestryChanged:Connect(function()
             if not obj:IsDescendantOf(game) then
@@ -153,6 +194,14 @@ function zlib:box(obj,name,list,optional) -- Made by Throit
                 end
             end
         end)
+        if zlib.UsingLinoria then
+            if Library.Unloaded then
+                run:Disconnect()
+                for k,v in pairs(ltable) do
+                    v:Remove()
+                end
+            end
+        end
     end
     coroutine.wrap(Update)()
     return ltable
@@ -181,13 +230,23 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
     local function updater()
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
-                if Variables[name].HaveSlider == true and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
+            if Variables[name].HaveSlider == true then
+                if zlib.UseCustomCharacter ~= nil and character ~= nil then
+                    if game.PlaceId == 8130299583 and character:FindFirstChild("Middle") then
+                        if Variables[name].Slider >= (obj.Position - character:FindFirstChild("Middle").Position).magnitude then
+                        else
+                            txt.Visible = false
+                            return
+                        end
+                    end
+                elseif zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
                     if Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                     else
                         txt.Visible = false
                         return
                     end
                 end
+            end
             if Variables[name].Toggle == true and Variables[name].Title == true then else txt.Visible = false return end
             local partpos, onscreen = zlib.__Tools.camera:WorldToViewportPoint(obj.Position)
             if onscreen then
@@ -196,6 +255,15 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
             else
                 txt.Visible = false
             end
+            if txt == nil then
+                c:Disconnect()
+            end
+            if zlib.UsingLinoria then
+                if Library.Unloaded then
+                   c:Disconnect()
+                   txt:Remove()
+               end
+           end
         end)
         obj.AncestryChanged:Connect(function()
             if not obj:IsDescendantOf(game) then
