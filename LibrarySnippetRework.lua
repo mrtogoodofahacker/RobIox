@@ -19,9 +19,9 @@ if table.find(zlib.CustomSupport,game.PlaceId) then
 end
 
 task.spawn(function()
-    if zlib.UseCustomCharacter ~= nil then
+    if table.find(zlib.CustomSupport,game.PlaceId) then
         if game.PlaceId == 8130299583 then
-            character = zlib.CustomCharacter:FindFirstChild("LocalCharacter")
+            character = workspace.Ignore.LocalCharacter
         end
     end
 end)
@@ -157,7 +157,7 @@ function zlib:box(obj,name,list,optional) -- Made by Throit, modified by Zeta
 
                 if autothick then
                     local distance
-                    if zlib.CustomCharacter ~= nil then
+                    if character ~= nil then
                         if game.PlaceId == 8130299583 then
                             distance = (character:WaitForChild('Middle').Position - part.Position).magnitude
                         end
@@ -231,7 +231,7 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
         local c
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
             if Variables[name].HaveSlider == true then
-                if zlib.UseCustomCharacter ~= nil and character ~= nil then
+                if character ~= nil then
                     if game.PlaceId == 8130299583 and character:FindFirstChild("Middle") then
                         if Variables[name].Slider >= (obj.Position - character:FindFirstChild("Middle").Position).magnitude then
                         else
