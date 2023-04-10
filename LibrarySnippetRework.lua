@@ -82,7 +82,7 @@ function zlib:box(obj,name,list,optional) -- Made by Throit, modified by Zeta
         local run
         run = zlib.__Tools.RS.RenderStepped:Connect(function()
                 if Variables[name].HaveSlider == true then
-                    if zlib.UseCustomCharacter ~= nil and character ~= nil then
+                    if character ~= nil then
                         if game.PlaceId == 8130299583 and character:FindFirstChild("Middle") then
                             if Variables[name].Slider >= (obj.Position - character:FindFirstChild("Middle").Position).magnitude then
                             else
