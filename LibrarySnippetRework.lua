@@ -92,7 +92,7 @@ function zlib:box(obj,name,list,optional) -- Made by Throit, modified by Zeta
                                 return
                             end
                         end
-                    elseif zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
+                    elseif zlib.__Tools.lp.Character and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
                         if Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                         else
                             for i,v in pairs(ltable) do 
@@ -239,7 +239,7 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
                             return
                         end
                     end
-                elseif zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
+                elseif zlib.__Tools.lp.Character and zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart") then
                     if Variables[name].Slider >= (obj.Position - zlib.__Tools.lp.Character:FindFirstChild("HumanoidRootPart").Position).magnitude then
                     else
                         txt.Visible = false
