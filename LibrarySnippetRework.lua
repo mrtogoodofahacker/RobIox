@@ -182,26 +182,23 @@ function zlib:box(obj,name,list,optional) -- Made by Throit, modified by Zeta
                     x.Visible = false
                 end
             end
-            if ltable.line1 == nil then
-                run:Disconnect()
+            if zlib.UsingLinoria then
+                if Library.Unloaded then
+                    run:Disconnect()
+                    for k,v in pairs(ltable) do
+                        v:Remove()
+                    end
+                end
             end
         end)
         obj.AncestryChanged:Connect(function()
-            if not obj:IsDescendantOf(game) then
+            if not obj:IsDescendantOf(game) and ltable.line1 ~= nil then
                 run:Disconnect()
                 for k,v in pairs(ltable) do
                     v:Remove()
                 end
             end
         end)
-        if zlib.UsingLinoria then
-            if Library.Unloaded then
-                run:Disconnect()
-                for k,v in pairs(ltable) do
-                    v:Remove()
-                end
-            end
-        end
     end
     coroutine.wrap(Update)()
     return ltable
@@ -255,9 +252,6 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
             else
                 txt.Visible = false
             end
-            if txt == nil then
-                c:Disconnect()
-            end
             if zlib.UsingLinoria then
                 if Library.Unloaded then
                    c:Disconnect()
@@ -266,7 +260,7 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
            end
         end)
         obj.AncestryChanged:Connect(function()
-            if not obj:IsDescendantOf(game) then
+            if not obj:IsDescendantOf(game) and txt ~= nil then
                 c:Disconnect()
                 txt:Remove()
             end
