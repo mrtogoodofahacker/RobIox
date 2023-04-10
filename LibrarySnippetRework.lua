@@ -5,7 +5,7 @@ zlib.__Tools.RS = game:GetService("RunService")
 zlib.__Tools.lp = game:GetService("Players").LocalPlayer
 zlib.__Tools.plrs = game:GetService("Players")
 zlib.CustomSupport = {
-    ["Trident Survival"] = 8130299583,
+    ["Trident Survival"] = 9570110925,
 }
 zlib.CustomCharacter = nil
 zlib.UsingLinoria = false
@@ -13,14 +13,14 @@ local character
 getgenv().Variables = {}
 
 if table.find(zlib.CustomSupport,game.PlaceId) then
-    if game.PlaceId == 8130299583 then
+    if game.PlaceId == 9570110925 then
         zlib.CustomCharacter = workspace.Ignore --.LocalCharacter
     end
 end
 
 task.spawn(function()
     if table.find(zlib.CustomSupport,game.PlaceId) then
-        if game.PlaceId == 8130299583 then
+        if game.PlaceId == 9570110925 then
             character = workspace.Ignore.LocalCharacter
         end
     end
@@ -83,7 +83,7 @@ function zlib:box(obj,name,list,optional) -- Made by Throit, modified by Zeta
         run = zlib.__Tools.RS.RenderStepped:Connect(function()
                 if Variables[name].HaveSlider == true then
                     if character ~= nil then
-                        if game.PlaceId == 8130299583 and character:FindFirstChild("Middle") then
+                        if game.PlaceId == 9570110925 and character:FindFirstChild("Middle") then
                             if Variables[name].Slider >= (obj.Position - character:FindFirstChild("Middle").Position).magnitude then
                             else
                                 for i,v in pairs(ltable) do
@@ -158,7 +158,7 @@ function zlib:box(obj,name,list,optional) -- Made by Throit, modified by Zeta
                 if autothick then
                     local distance
                     if character ~= nil then
-                        if game.PlaceId == 8130299583 then
+                        if game.PlaceId == 9570110925 then
                             distance = (character:WaitForChild('Middle').Position - part.Position).magnitude
                         end
                     else
@@ -229,7 +229,7 @@ function zlib:text(obj,y,x,name,list,optional) -- made by me
         c = zlib.__Tools.RS.RenderStepped:Connect(function()
             if Variables[name].HaveSlider == true then
                 if character ~= nil then
-                    if game.PlaceId == 8130299583 and character:FindFirstChild("Middle") then
+                    if game.PlaceId == 9570110925 and character:FindFirstChild("Middle") then
                         if Variables[name].Slider >= (obj.Position - character:FindFirstChild("Middle").Position).magnitude then
                         else
                             txt.Visible = false
